@@ -24,7 +24,7 @@ public class PokeExport
 		//		for (int x=0; x<14; x++)
 		//				printBox(x);
 		//		
-		//		System.out.println(parsePkm(readPkmFile(0)));
+		System.out.println(parsePkm(readPkmFile(0)));
 		//		readPkmFile(0);
 
 
@@ -39,24 +39,136 @@ public class PokeExport
 	{
 		String output = "";
 
-		output += parseNickname(b);
-		//		output += parseSpecies(b);
-		//		output += parseItem(b);
-		//		output += parseMoves(b);
-		////		output += parseOT(b);
-		//		output += parseID(b);
-		//		output += parseExp(b);
-		//		output += parseIV(b);
-		//		output += parseEvs(b);
-		//		output += parsePP(b);
-		//		output += parseHappy(b);
-		//		output += parsePokeRus(b);
-		//		output += parseTime(b);
-		//		output += parseGender(b);
-		//		output += parseOTGender(b);
-		//		output += parseLocation(b);
+		output += "\nNickname: "+ parseNickname(b);
+		output += "\nSpecies: "+parseSpecies(b);
+		output += "\nHold Item: "+parseItem(b);
+		output += "\nMoveset: "+parseMoves(b);
+		output += "\nExperience: "+parseExp(b);
+		output += "\nEVs: "+parseEvs(b);
+		output += "\nIVs: "+parseIV(b);
+//		output += "\nPP: "+parsePP(b);
+		output += "\nHappiness: "+parseHappy(b);
+		output += "\nPokeRus: "+parsePokeRus(b);
+//		output += "\n    CAUGHT DATA";
+		output += "\nMet at Level: "+parseLevelMet(b);
+		output += "\nTime of Day: "+parseTime(b);
+		output += "\nLocation: "+ parseLocation(b);
+//		output += "\n    TRAINER DATA";
+		output += "\nTrainer Name: "+parseOT(b);
+		output += "\nTrainer ID: "+parseID(b);
+		output += "\nTrainer Gender: " + parseOTGender(b);
 
 		return output;
+	}
+	
+	private static String parseOT(byte[] b) 
+	{
+		String output="";
+		
+		for (int x=11; x<19; x++)
+		{
+			output += ((char)(convertPokeText(getUnsigned(b[x]))));
+		}
+		return output;
+	}
+
+	private static String parseIV(byte[] b)
+	{
+		
+		return ""+(getUnsigned(b[43])*256 + getUnsigned(b[44]));
+	}
+
+	private static String parseLevelMet(byte[] b) 
+	{
+		return ""+(getUnsigned(b[51])-(b[51] & 0x80)-(b[51] & 0x40));
+	}
+
+	private static String parseTime(byte[] b) 
+	{
+		String time = (((b[51] & 0x80)!=0)?1:0)+""+(((b[51] & 0x40)!=0)?1:0);
+		String daylight;
+
+		if (time.equals("01"))
+				daylight = "Morning";
+		else if (time.equals("10"))
+			daylight = "Mid-Day";
+		else if (time.equals("11"))
+			daylight = "Night";
+		else
+			daylight = "No Data";
+
+		return daylight;
+	}
+
+	private static String parseLocation(byte[] b) 
+	{
+		return locations[(getUnsigned(b[52])-(b[52] & 0x80))];
+	}
+
+	private static String parseOTGender(byte[] b) 
+	{
+		return ((b[52] & 0x80)!=0)? "Female" : "Male";
+	}
+
+	private static String parsePokeRus(byte[] b) 
+	{
+		return ""+(getUnsigned(b[50])==1);
+	}
+
+	private static String parseHappy(byte[] b) 
+	{
+		return ""+getUnsigned(b[49]);
+	}
+
+	private static String parsePP(byte[] b) 
+	{
+		String moveset = "";
+
+		for (int x=0; x<4; x++)
+			moveset += getUnsigned(b[45+x]) + " / ";
+
+		return moveset.substring(0, moveset.length()-3);
+	}
+
+	private static String parseEvs(byte[] b) 
+	{
+		String[] evtypes = {"HP","ATK","DEF","SPEED","SPECIAL"};
+		String sendstring="";
+
+		for (int x=0; x<5; x++)
+			sendstring+=  getUnsigned(b[33+x*2])*256 + getUnsigned(b[33+x*2+1])+ " " + evtypes[x] + " / ";
+
+		return sendstring.substring(0, sendstring.length()-3);
+	}
+
+	private static String parseExp(byte[] b) 
+	{
+		return ""+(getUnsigned(b[30])*65536 + getUnsigned(b[31])*256 + getUnsigned(b[32]));
+	}
+
+	private static String parseID(byte[] b) 
+	{
+		return ""+(getUnsigned(b[28])*256+getUnsigned(b[29]));
+	}
+
+	private static String parseMoves(byte[] b) 
+	{
+		String moveset = "";
+
+		for (int x=0; x<4; x++)
+			moveset += attacks[getUnsigned(b[24+x])] + " / ";
+
+		return moveset.substring(0, moveset.length()-3);
+	}
+
+	private static String parseItem(byte[] b) 
+	{
+		return items[getUnsigned(b[23])];
+	}
+
+	private static String parseSpecies(byte[] b) 
+	{
+		return pokemon[getUnsigned(b[22])];
 	}
 
 	public static String parseNickname(byte[] b)
@@ -90,7 +202,7 @@ public class PokeExport
 			datap[x] = namedata[x];
 
 		// OT bytes
-		for (int x=11; x<22; x++)
+		for (int x=11; x<19; x++)
 			datap[x] = otnamedata[x-11];
 
 		// PKM data bytes
@@ -108,9 +220,12 @@ public class PokeExport
 	 */
 	public static byte[] readOT(int pos)
 	{
-		byte[] otname = new byte[11];
+		byte[] otname = new byte[8];
 
+		int begin = 6765+288; 
 
+		for (int x=0; x<8; x++)
+			otname[x]=data[begin+x-37*pos];
 
 		return otname;
 	}
@@ -123,6 +238,34 @@ public class PokeExport
 	public static byte[] readPkmn(int pos)
 	{
 		byte[] pkmdata = new byte[32];
+		// Byte represents the nickname, so it will always be 11 bytes.
+
+		// pos 1-6 is party, from then on is box
+		int begin = 6765; 
+
+		if (pos>=6)
+		{
+			begin = (int) (16384+1104*Math.floor(((pos-6)/20))+22);
+			begin+=32*((pos-6)%20);
+		}
+		else
+			begin+=37*pos;
+
+		// Get the data
+		for (int x=0; x<32; x++)
+		{
+			if (pos<6)
+			{
+				//				System.out.print((char)(convertPokeText(getUnsigned((data[begin+x+354-37*pos])))));
+				pkmdata[x]=data[begin+x-37*pos];
+			}
+			else
+			{
+				//				System.out.print((char)(convertPokeText(getUnsigned((data[begin+x+860-21*((pos-6)%20)])))));
+				pkmdata[x]=data[begin+x+860-21*((pos-6)%20)];
+			}
+
+		}
 
 		//		for (int x=0; x<32; x++)
 		//			pkmdata[x] = 
@@ -279,7 +422,7 @@ public class PokeExport
 		else if (c>=97 && c<191) //Pokemon alphabet
 			return c+65-128;
 		else if (c==80)  // Null terminator
-			return '.';
+			return '\0';
 		else if (c>=32) // Symbols that ruin formatting
 			return c;
 		else
