@@ -1,4 +1,10 @@
 import java.util.*;
+/**
+ * This driver is to be used to convert regular ASCII to the POKETEXT HEX values for 2nd gen
+ * read in text from the keyboard, and then hit enter and it will print the hex under it
+ * @author Ricky
+ *
+ */
 public class data
 {
 	public static void main (String[] args)
