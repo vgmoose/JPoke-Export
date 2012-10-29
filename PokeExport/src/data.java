@@ -9,6 +9,18 @@ public class data
 {
 	public static void main (String[] args)
 	{
+		int[] bulba = {89,110,63,113,118,120,118,110,33};
+		
+		for (int a : bulba)
+		{				
+			int b = (((55*((a-32)-43))%92)+92)%92+32;
+			System.out.println("converting "+a+" ("+(char)a+") to "+b+" ("+(char)b+")");
+		}
+	}
+
+	
+	public static void main2 (String[] args)
+	{
 		Scanner scan = new Scanner(System.in);
 
 		while(true)
