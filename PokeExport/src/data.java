@@ -7,7 +7,7 @@ import java.util.*;
  */
 public class data
 {
-	public static void main (String[] args)
+	public static void main2 (String[] args)
 	{
 		int[] bulba = {89,110,63,113,118,120,118,110,33};
 		
@@ -19,7 +19,7 @@ public class data
 	}
 
 	
-	public static void main2 (String[] args)
+	public static void main (String[] args)
 	{
 		Scanner scan = new Scanner(System.in);
 

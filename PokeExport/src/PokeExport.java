@@ -19,47 +19,47 @@ public class PokeExport
 		initVars();
 
 
-				printBytes(readPkmnData(6));
-				
-//				printAllPokemonDetails();
+//		printBytes(readOT(26));
 
-//				printHexTable();
-//				printParty();
-//				printDetailedParty();
+		printAllPokemonDetails();
+
+//						printHexTable();
+		//				printParty();
+		//				printDetailedParty();
 		//		for (int x=0; x<14; x++)
 		//				printBox(x);
 		//		
 
-		System.out.println(parsePkm(readPokemonFromFile(7)));
-//System.out.println();
+//		System.out.println(parsePkm(readPokemonFromFile(26)));
+		//System.out.println();
 
 		//		readPkmFile(0);
 
 
 
 	}
-	
-//	/**
-//	 * This method is useful when writing into a party slot (the extra 16 bytes need to be generated.) 
-//	 * @param b	the full 32 bit string for PKMN data
-//	 * @return
-//	 */
-//	static byte[] spoofBytes(byte[] b)
-//	{
-//		byte[] newbytes = new byte[48];
-//		
-//		// copy over old array
-//		for (int x=0; x<32; x++)
-//			newbytes[x] = b[x];
-//		
-//	}
+
+	//	/**
+	//	 * This method is useful when writing into a party slot (the extra 16 bytes need to be generated.) 
+	//	 * @param b	the full 32 bit string for PKMN data
+	//	 * @return
+	//	 */
+	//	static byte[] spoofBytes(byte[] b)
+	//	{
+	//		byte[] newbytes = new byte[48];
+	//		
+	//		// copy over old array
+	//		for (int x=0; x<32; x++)
+	//			newbytes[x] = b[x];
+	//		
+	//	}
 
 	private static void printAllPokemonDetails() 
 	{
 		// Print party
 		for (int x=0; x<getPartySize(); x++)
 			System.out.println(parsePkm(readPokemonFromFile(x)));
-		
+
 		//Print all 14 boxes
 		for (int x=0; x<14; x++)
 		{
@@ -73,12 +73,12 @@ public class PokeExport
 		for (int x=0; x<getPartySize(); x++)
 			System.out.println(parsePkm(readPokemonFromFile(x)));	
 	}
-	
+
 	private static int getBoxNumber(int pos)
 	{
 		return ((pos-6)%20);
 	}
-	
+
 	private static int getBoxSize(int box)
 	{
 		box++;
@@ -141,7 +141,7 @@ public class PokeExport
 	private static String parseLevelMet(byte[] b) 
 	{
 		int a = (getUnsigned(b[51])-(b[51] & 0x80)-(b[51] & 0x40));
-		
+
 		if (a==1)
 			return "Egg";
 		else
@@ -257,11 +257,11 @@ public class PokeExport
 	public static byte[] readPokemonFromFile(int index)
 	{
 		byte[] datap;
-		
-//		if (index>=6)
-			datap = new byte[54];
-//		else
-//			datap = new byte[70];
+
+		//		if (index>=6)
+		datap = new byte[54];
+		//		else
+		//			datap = new byte[70];
 
 		// The file structure is 54 bytes // or 70 bytes
 		// 11 for the Nickname of the Pokemon
@@ -299,16 +299,20 @@ public class PokeExport
 		byte[] otname = new byte[8];
 
 		int begin = 6765+288;
-		
+
 		if (pos<6) begin+=48*pos; 
-		else begin+=32*pos;
+		else 
+		{
+			begin = (int) (16384+1104*Math.floor(((pos-6)/20))+22);
+			begin+=640+11*((pos-6)%20);
+		}
 
 		for (int x=0; x<8; x++)
 		{
 			if (pos<6)
 				otname[x]=data[begin+x-37*pos];
 			else
-				otname[x]=data[begin+x-32*pos];
+				otname[x]=data[begin+x];
 		}
 
 		return otname;
@@ -346,7 +350,7 @@ public class PokeExport
 			else
 			{
 				//				System.out.print((char)(convertPokeText(getUnsigned((data[begin+x+860-21*((pos-6)%20)])))));
-				pkmdata[x]=data[begin+x-21*getBoxNumber(pos)];
+				pkmdata[x]=data[begin+x-21*(pos-6)%20+(pos-6)%20];
 			}
 
 		}
@@ -498,7 +502,7 @@ public class PokeExport
 
 		// Put bytes from file into byte array
 		fis.read(data, 0, data.length);
-		
+
 		// Decrypt the String arrays
 		decryptAllStrings();
 	}
@@ -515,7 +519,7 @@ public class PokeExport
 		else if (c>=97 && c<191) //Pokemon alphabet
 			return c+65-128;
 		else if (c==80)  // Null terminator
-			return '\0';
+			return '.';
 		else if (c>=32) // Symbols that ruin formatting
 			return c;
 		else
@@ -570,7 +574,7 @@ public class PokeExport
 			s = s.toUpperCase();
 
 			char newchar = (char)(convertPokeText(getUnsigned(data[x])));
-			
+
 			if (newchar<32) newchar = 46;
 			row+=""+newchar;
 
@@ -591,7 +595,7 @@ public class PokeExport
 				System.out.print("| ");
 		}
 	}
-	
+
 	private static void decryptAllStrings()
 	{
 		items = decryptStrings(items);
@@ -608,17 +612,17 @@ public class PokeExport
 			for (int y=0; y<strings[x].length(); y++)
 			{
 				int a = strings[x].charAt(y);
-				
-//				System.out.print("converting "+a+" ("+(char)a+")");
+
+				//				System.out.print("converting "+a+" ("+(char)a+")");
 				a = (((55*((a-32)-43))%92)+92)%92+32;
-//				System.out.println(" to "+a+" ("+(char)a+")");
-				
+				//				System.out.println(" to "+a+" ("+(char)a+")");
+
 				t+= (char)(a);
 
 			}
 
 			strings[x] = t;
-//			System.out.println(t);
+			//			System.out.println(t);
 		}
 
 		return strings;
@@ -651,18 +655,18 @@ public class PokeExport
 			for (int x=0; x<s.length(); x++)
 			{
 				int a = s.charAt(x);
-				
+
 				a-=' ';
 
 				a = ((a*87+43)%92)+' ';
-				
+
 				if (a=='\\')
 					t += "\\\\";
 				else
-				if (a== '"')
-					t += "\\\"";
-				else
-				t+= (char)a;
+					if (a== '"')
+						t += "\\\"";
+					else
+						t+= (char)a;
 			}
 			//			System.out.print("\""+s+"\", ");
 			System.out.print("\""+t+"\"");
