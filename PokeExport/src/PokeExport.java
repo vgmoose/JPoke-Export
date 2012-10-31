@@ -14,6 +14,8 @@ public class PokeExport
 	private static String[] locations = {"y0KOvsv", "ybdKYv!DK[0d5", "e0nsbKM*", "TSb!!ZX!0ibKTNsZ", "e0nsbKHW", "e0nsbKHR", "QN0?bsKTNsZ", "`+!0nsK[0db!", "e0nsbKHM", "enN5xK0]K^?+S", "V5N05KTvib", "e0nsbKHH", "^Uv?bvK[0d5", "`?0d+0DbKLb??", "6?b_KE0!bxs", "e0nsbKHC", "@0?gb5!0gKTNsZ", "evgN0K[0db!", "e0nsbKH>", "yvsN05v?Kov!D", "e0nsbKH9", "e0nsbKH4", "Jl!nsbvDKTNsZ", "[N5K[0db!", "Yn!5bgK[0db!", "e0nsbKH/", "e0nsbKH*", "t?NiN5bKTNsZ", "'NXSsS0nxb", "Yvss?bK[0db!", "e0nsbKCW", "LSN!?K6x?v5gx", "e0nsbKCR", "TNv5d00gKTNsZ", "e0nsbKCM", "\"saK\"0!sv!", "\"vS0Xv5ZK[0d5", "e0nsbKCH", "'vDbK0]KevXb", "e0nsbKCC", "6lbKovsS", "Y?vlDsS0!5KTNsZ", "O!vX05(xKOb5", "e0nsbKC>", "Ov!DKTvib", "e0nsbKC9", "`N?ib!KTvib", "ov??bsK[0d5", "e0nsbKR", "QN!NgNv5KTNsZ", "e0nsbKM", "obdsb!KTNsZ", "e0nsbKH", "\"saK\"005", "e0nsbKC", "Tb!n?bv5KTNsZ", "e0nsbKMC", "e0nsbKM>", "e0nsbK>", "V5gb!X!0n5g", "e0nsbK9", "Qb!:N?N05KTNsZ", "ONX?bss(xKTvib", "e0nsbK4", "e0nsbK/", "e0nsbK*", "e0lDK[n55b?", "e0nsbKRW", "o0db!Ko?v5s", "'vib5gb!K[0d5", "'viaKevgN0K[0db!", "Tb?vg05KTNsZ", "`v]]!05KTNsZ", "e0nsbKRR", "e0nsbKRM", "e0nsbKRH", "e0nsbKRC", "e0nsbKR>", "e0nsbKR9", "e0nsbKR4", "e0nsbKR/", "EnlSxNvKTNsZ", "e0nsbKR*", "e0nsbKMW", "`bv]0v:K6x?v5gx", "TN55vqv!K6x?v5g", "e0nsbKMR", "e0nsbKMM", "QNls0!ZKe0vg", "e0nsbKMH", "65gNX0Ko?vsbvn", "e0nsbKM9", "e0nsbKM4", "[0SI0KEv??x", "e0nsbKM/", "EvxsK`SN+", "V5D50d5", "V5D50d5", "V5D50d5", "V5D50d5", "V5D50d5", "V5D50d5", "V5D50d5", "V5D50d5", "V5D50d5", "V5D50d5", "V5D50d5", "V5D50d5", "V5D50d5", "V5D50d5", "V5D50d5", "V5D50d5", "V5D50d5", "V5D50d5", "V5D50d5", "V5D50d5", "V5D50d5", "V5D50d5", "V5D50d5", "V5D50d5", "V5D50d5", "V5D50d5", "V5D50d5", "V5D50d5", "V5D50d5", "J:+sZ", "Tv5(sKsb??", "`+blNv?"};
 	//	static String[] locationmapping = {"0","126","177","127","178","179","139","204","180","209","143","181","129","211","214","182","131","208","183","207","184","185","133","205","206","186","187","132","212","205","188","218","189","130","190","216","134","191","135","192","217","136","222","193","220","194","137","138","149","224","150","140","151","198","152","141","172","173","153","210","154","221","197","155","156","157","200","158","201","142","0","144","148","159","160","161","162","163","164","165","166","145","167","168","203","146","169","170","128","171","147","174","175","223","176","226"};	
 
+	private static double[] genders = {-1,0.875,0.875,0.875,0.875,0.875,0.875,0.875,0.875,0.875,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0,0,0,1,1,1,0.25,0.25,0.25,0.25,0.25,0.25,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.75,0.75,0.5,0.5,0.5,0.75,0.75,0.75,0.75,0.75,0.75,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,-1,-1,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,-1,-1,0.5,0.5,0.5,0.5,1,1,0.5,0.5,0.5,0.5,0.5,0,0.5,0,0.5,0.5,0.5,0.5,-1,-1,0.5,0.5,0,0.75,0.75,0.5,1,0.5,0.5,0.5,-1,0.875,0.875,0.875,0.875,-1,0.875,0.875,0.875,0.875,0.875,0.875,-1,-1,-1,0.5,0.5,0.5,-1,-1,0.875,0.875,0.875,0.875,0.875,0.875,0.875,0.875,0.875,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.25,0.25,0.875,0.875,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.875,0.875,0.5,0.5,0.5,-1,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.25,0.25,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.25,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,-1,0.5,0.5,1,1,0,0.75,0.75,0,0,-1,-1,-1,0.5,0.5,0.5,-1,-1,-1};
+	
 	public static void main(String[] args) throws Exception
 	{
 		initVars();
@@ -67,6 +69,32 @@ public class PokeExport
 				System.out.println(parsePkm(readPokemonFromFile(x*20+y+6)));
 		}
 	}
+	
+	private static String parseGender(byte[] b)
+	{
+		// get the gender ratio
+		double gender =  genders[getUnsigned(b[22])];
+		
+		// male and female only species
+		if (gender==1)
+			return "Male";
+		else if (gender==0)
+			return "Female";
+		else if (gender==-1)
+			return "Genderless";
+		
+		// flip the gender ratio
+		gender = 1-gender;
+		
+		double ivratio = (getUnsigned(((b[43] >> 4) & 0xf))+1)/(16.0);
+		
+//		System.out.println(""+ivratio+" "+gender);
+		
+		if ( ivratio >= gender)
+			return "Male";
+		else
+			return "Female";
+	}
 
 	private static void printDetailedParty() 
 	{
@@ -88,6 +116,11 @@ public class PokeExport
 	/**
 	 * Parses a PKM file as a string
 	 */
+	
+	static String getUnknownType(byte[] b)
+	{
+		return "??"; /*TODO: this*/
+	}
 
 	public static String parsePkm(byte[] b)
 	{
@@ -96,6 +129,7 @@ public class PokeExport
 		output += "\nNickname: "+ parseNickname(b);
 		output += "\nSpecies: "+parseSpecies(b);
 		output += "\nLevel: " + parseLevel(b);
+		output += "\nGender: "+parseGender(b);
 		output += "\nHold Item: "+parseItem(b);
 		output += "\nMoveset: "+parseMoves(b);
 		output += "\nExperience: "+parseExp(b);
@@ -135,7 +169,15 @@ public class PokeExport
 	private static String parseIV(byte[] b)
 	{
 
-		return ""+(getUnsigned(b[43])*256 + getUnsigned(b[44]));
+		String output = "";
+		
+		int attack = getUnsigned((b[43] >> 4) & 0xf);
+		int defense =  getUnsigned((b[43] >> 0) & 0xf);
+		int speed = getUnsigned((b[44] >> 4) & 0xf);
+		int special =  getUnsigned((b[44] >> 0) & 0xf);
+				
+//		return ""+(getUnsigned(b[43])*256 + getUnsigned(b[44]));
+		return ""+attack+" ATK / "+defense+" DEF / "+speed+" SPEED / "+special+" SPECIAL";
 	}
 
 	private static String parseLevelMet(byte[] b) 
@@ -233,7 +275,19 @@ public class PokeExport
 
 	private static String parseSpecies(byte[] b) 
 	{
-		return pokemon[getUnsigned(b[22])];
+		int species = getUnsigned(b[22]);
+		
+		if (species != 201)
+			return pokemon[species];
+		else
+		{
+			// Calculate unown type
+			// get the middle bits of the four main IV nibbles and put them together from
+			// left to right, then divide by 10 and floor it, a number between 0 and 25 will appear
+			// add + 'A' to this, to get the ascii. 
+			/** TODO: add unown stuff **/
+			return pokemon[species];
+		}
 	}
 
 	public static String parseNickname(byte[] b)
@@ -519,7 +573,7 @@ public class PokeExport
 		else if (c>=97 && c<191) //Pokemon alphabet
 			return c+65-128;
 		else if (c==80)  // Null terminator
-			return '.';
+			return '\0';
 		else if (c>=32) // Symbols that ruin formatting
 			return c;
 		else
