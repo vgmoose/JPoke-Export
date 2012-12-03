@@ -25,20 +25,22 @@ public class PokeExport
 	public static void main(String[] args) throws Exception
 	{
 		initVars();
+		byte[] poke1 = readPokemonFromFile(7);
+		writePokemonToFile(poke1, 8);
 		writeFile();
-		
-//		printBytes(readOT(26));
 
-//		printAllPokemonDetails();
+		//		printBytes(readOT(26));
 
-//						printHexTable();
+		//		printAllPokemonDetails();
+
+		//						printHexTable();
 		//				printParty();
-//						printDetailedParty();
+		//						printDetailedParty();
 		//		for (int x=0; x<14; x++)
 		//				printBox(x);
 		//		
 
-//		System.out.println(parsePkm(readPokemonFromFile(26)));
+		//		System.out.println(parsePkm(readPokemonFromFile(26)));
 		//System.out.println();
 
 		//		readPkmFile(0);
@@ -52,15 +54,15 @@ public class PokeExport
 	//	 * @param b	the full 32 bit string for PKMN data
 	//	 * @return
 	//	 */
-//		static byte[] spoofBytes(byte[] b)
-//		{
-//			byte[] newbytes = new byte[48];
-//			
-//			// copy over old array
-//			for (int x=0; x<32; x++)
-//				newbytes[x] = b[x];
-//			
-//		}
+	//		static byte[] spoofBytes(byte[] b)
+	//		{
+	//			byte[] newbytes = new byte[48];
+	//			
+	//			// copy over old array
+	//			for (int x=0; x<32; x++)
+	//				newbytes[x] = b[x];
+	//			
+	//		}
 
 	private static void printAllPokemonDetails() 
 	{
@@ -75,12 +77,12 @@ public class PokeExport
 				System.out.println(parsePkm(readPokemonFromFile(x*20+y+6)));
 		}
 	}
-	
+
 	private static String parseGender(byte[] b)
 	{
 		// get the gender ratio
 		double gender =  genders[getUnsigned(b[22])];
-		
+
 		// male and female only species
 		if (gender==1)
 			return "Male";
@@ -88,14 +90,14 @@ public class PokeExport
 			return "Female";
 		else if (gender==-1)
 			return "Genderless";
-		
+
 		// flip the gender ratio
 		gender = 1-gender;
-		
+
 		double ivratio = (getUnsigned(((b[43] >> 4) & 0xf))+1)/(16.0);
-		
-//		System.out.println(""+ivratio+" "+gender);
-		
+
+		//		System.out.println(""+ivratio+" "+gender);
+
 		if ( ivratio >= gender)
 			return "Male";
 		else
@@ -122,7 +124,7 @@ public class PokeExport
 	/**
 	 * Parses a PKM file as a string
 	 */
-	
+
 	static String getUnknownType(byte[] b)
 	{
 		return "??"; /*TODO: this*/
@@ -178,8 +180,8 @@ public class PokeExport
 		int defense =  getUnsigned((b[43] >> 0) & 0xf);
 		int speed = getUnsigned((b[44] >> 4) & 0xf);
 		int special =  getUnsigned((b[44] >> 0) & 0xf);
-				
-//		return ""+(getUnsigned(b[43])*256 + getUnsigned(b[44]));
+
+		//		return ""+(getUnsigned(b[43])*256 + getUnsigned(b[44]));
 		return ""+attack+" ATK / "+defense+" DEF / "+speed+" SPEED / "+special+" SPECIAL";
 	}
 
@@ -279,7 +281,7 @@ public class PokeExport
 	private static String parseSpecies(byte[] b) 
 	{
 		int species = getUnsigned(b[22]);
-		
+
 		if (species != 201)
 			return pokemon[species];
 		else
@@ -345,6 +347,39 @@ public class PokeExport
 		return datap;
 
 	}
+	
+	/**
+	 * Breaks down an entire pokemon string of bytes into three other byte
+	 * arrays and then passes them to the appropriate functions that put them
+	 * into the main data array
+	 * 
+	 * @param b	the entire set of bytes of pokemon data
+	 * @param index	the slot to write the pokemon to
+	 */
+	public static void writePokemonToFile(byte[] b, int index)
+	{
+		
+		byte[] namedata = new byte[11];
+		byte[] otnamedata = new byte[8];
+		byte[] pkmdata = new byte[32];
+		
+		// Nickname bytes
+		for (int x=0; x<11; x++)
+			namedata[x] = b[x];
+
+		// OT bytes
+		for (int x=11; x<19; x++)
+			otnamedata[x-11] = b[x];
+
+		// PKM data bytes
+		for (int x=22; x<54; x++)
+			pkmdata[x-22] = b[x];
+		
+		writeNickName(namedata, index);
+		writeOT(otnamedata, index);
+		writePkmnData(pkmdata, index);
+
+	}
 
 	/**
 	 * Returns the name of the original trainer
@@ -373,6 +408,32 @@ public class PokeExport
 		}
 
 		return otname;
+	}
+	
+	/**
+	 * Writes OT bytes to the data in the appropriate slot
+	 * @param b	OT bytes
+	 * @param pos	slot to write to
+	 */
+	public static void writeOT(byte[] b, int pos)
+	{
+		int begin = 6765+288;
+
+		if (pos<6) begin+=48*pos; 
+		else 
+		{
+			begin = (int) (16384+1104*Math.floor(((pos-6)/20))+22);
+			begin+=640+11*((pos-6)%20);
+		}
+
+		for (int x=0; x<8; x++)
+		{
+			if (pos<6)
+				data[begin+x-37*pos]=b[x];
+			else
+				data[begin+x]=b[x];
+		}
+
 	}
 
 	/**
@@ -411,54 +472,92 @@ public class PokeExport
 			}
 
 		}
-
-		//		for (int x=0; x<32; x++)
-		//			pkmdata[x] = 
-
+		
 		return pkmdata;
 	}
+	
+	/**
+	 * Writes the passed bytes to the data array, should be called when inserting into
+	 * a slot a certain array of bytes
+	 * 
+	 * @param b		The pokemon data that is going to be written
+	 * @param pos	What slot to write the data to
+	 */
+	public static void writePkmnData(byte[] b, int pos)
+	{
+		// pos 1-6 is party, from then on is box
+		int begin = 6765; 
+
+		if (pos>=6)
+		{
+			begin = (int) (16384+1104*Math.floor(((pos-6)/20))+22);
+			begin+=32*getBoxNumber(pos);
+		}
+		else
+			begin+=48*pos;
+
+		// Get the data
+		for (int x=0; x<32; x++)
+		{
+			if (pos<6)
+			{
+				//				System.out.print((char)(convertPokeText(getUnsigned((data[begin+x+354-37*pos])))));
+				data[begin+x]=b[x];//-37*pos];
+			}
+			else
+			{
+				//				System.out.print((char)(convertPokeText(getUnsigned((data[begin+x+860-21*((pos-6)%20)])))));
+				data[begin+x-21*(pos-6)%20+(pos-6)%20]=b[x];
+			}
+
+		}
+	}
+
+	//		for (int x=0; x<32; x++)
+	//			pkmdata[x] = 
+
 
 	/**
 	 * Fixes the checksum for modified data, needs to be called whenever stuff is written
 	 */
 	public static void fixChecksum()
 	{
-        int start = 8201;
-        int size = 2938;
-        int new_checksum = 0;
-        
-        int new_checksum1 = 0;
-        int new_checksum2 = 0;
-        
-        int old_checksum1 = (getUnsigned(data[11533]));
-        int old_checksum2 = (getUnsigned(data[11534]));
-        int old_checksum = old_checksum1*256 + old_checksum2;
-        
-        for (int x=0; x<size; x++)
-        {
-            new_checksum += getUnsigned(data[x+start]);
-            new_checksum &= 65535;
-        }
-        
-        new_checksum2 = (new_checksum/256);
-        new_checksum1 = (new_checksum%256);
-        
-        new_checksum = new_checksum1*256 + new_checksum2;
-                
-        if (new_checksum == old_checksum)
-            System.out.println("checksum is valid!");
-        else
-        {
-            System.out.printf( "checksum SHOULD be %x, it is set to %x\n", new_checksum, old_checksum);
-            
-        }
+		int start = 8201;
+		int size = 2938;
+		int new_checksum = 0;
 
-            
-        
-        
-//        self.checksum = checksum
-//        self.setbyte(0x2d0d,checksum & 255)
-//        self.setbyte(0x2d0e,(checksum >> 8) & 255)
+		int new_checksum1 = 0;
+		int new_checksum2 = 0;
+
+		int old_checksum1 = (getUnsigned(data[11533]));
+		int old_checksum2 = (getUnsigned(data[11534]));
+		int old_checksum = old_checksum1*256 + old_checksum2;
+
+		for (int x=0; x<size; x++)
+		{
+			new_checksum += getUnsigned(data[x+start]);
+			new_checksum &= 65535;
+		}
+
+		new_checksum2 = (new_checksum/256);
+		new_checksum1 = (new_checksum%256);
+
+		new_checksum = new_checksum1*256 + new_checksum2;
+
+		if (new_checksum == old_checksum)
+			System.out.println("checksum is valid!");
+		else
+		{
+			System.out.printf( "checksum SHOULD be %x, it is set to %x\n", new_checksum, old_checksum);
+
+		}
+
+
+
+
+		//        self.checksum = checksum
+		//        self.setbyte(0x2d0d,checksum & 255)
+		//        self.setbyte(0x2d0e,(checksum >> 8) & 255)
 	}
 
 	/**
@@ -514,6 +613,43 @@ public class PokeExport
 
 		// Return the string of bytes representing the name
 		return name;
+	}
+	
+	/**
+	 * Writes the nickname bytes to the data byte array
+	 * 
+	 * @param b	nickname byte array
+	 * @param pos slot to insert into
+	 */
+	public static void writeNickName(byte[] b, int pos)
+	{
+		// pos 1-6 is party, from then on is box
+		int begin = 6765; 
+
+		if (pos>=6)
+		{
+			begin = (int) (16384+1104*Math.floor(((pos-6)/20))+22);
+			begin+=32*getBoxNumber(pos);
+		}
+		else
+			begin+=48*pos;
+
+		// Get the nickname
+		for (int x=0; x<11; x++)
+		{
+			if (pos<6)
+			{
+				//				System.out.print((char)(convertPokeText(getUnsigned((data[begin+x+354-37*pos])))));
+				data[begin+x+354-37*pos]=b[x];
+			}
+			else
+			{
+				//				System.out.print((char)(convertPokeText(getUnsigned((data[begin+x+860-21*((pos-6)%20)])))));
+				data[begin+x+860-21*getBoxNumber(pos)]=b[x];
+			}
+
+		}
+
 	}
 
 	public static void printBytes(byte[] b)
@@ -579,7 +715,7 @@ public class PokeExport
 		System.out.println();
 
 	}
-	
+
 	public static void loadFile() throws IOException
 	{
 		// Create byte array for data to go in
@@ -591,16 +727,16 @@ public class PokeExport
 		// Put bytes from file into byte array
 		fis.read(data, 0, data.length);
 	}
-	
+
 	public static void writeFile() throws IOException
 	{
 		// Open file output stream for writing
 		FileOutputStream fos = new FileOutputStream(pokesav);
-		
+
 		fixChecksum();
-		
+
 		fos.write(data);
-		
+
 	}
 
 	public static File chooseFile()
@@ -609,14 +745,14 @@ public class PokeExport
 
 		fileselect.showOpenDialog(null);
 		File filename = fileselect.getSelectedFile();
-		
+
 		return filename;
 	}
 
 	public static void initVars() throws IOException
 	{
-		//	File pokesav = new File("/Users/Ricky/Library/Application Support/Bannister/KiGB/Battery RAM/Pokemon Crystal.sav");
-		pokesav = chooseFile();
+		pokesav = new File("/Users/Ricky/Library/Application Support/Bannister/KiGB/Battery RAM/Pokemon Crystal.sav");
+//		pokesav = chooseFile();
 
 		// Loads the file that was just chosen
 		loadFile();
