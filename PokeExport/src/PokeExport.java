@@ -25,9 +25,11 @@ public class PokeExport
 	public static void main(String[] args) throws Exception
 	{
 		initVars();
-		byte[] poke1 = readPokemonFromFile(7);
-		writePokemonToFile(poke1, 8);
-		writeFile();
+//		byte[] poke1 = readPokemonFromFile(7);
+//		writePokemonToFile(poke1, 8);
+//		writeFile();
+		
+		printAllPokemonDetails();
 
 		//		printBytes(readOT(26));
 
@@ -751,8 +753,8 @@ public class PokeExport
 
 	public static void initVars() throws IOException
 	{
-		pokesav = new File("/Users/Ricky/Library/Application Support/Bannister/KiGB/Battery RAM/Pokemon Crystal.sav");
-//		pokesav = chooseFile();
+//		pokesav = new File("/Users/Ricky/Library/Application Support/Bannister/KiGB/Battery RAM/Pokemon Crystal.sav");
+		pokesav = chooseFile();
 
 		// Loads the file that was just chosen
 		loadFile();
@@ -930,6 +932,15 @@ public class PokeExport
 		}
 
 		System.out.println("};");
+	}
+	
+	/**
+	 * This method writes the species value which is apparently randomly used 
+	 * @param pos
+	 */
+	public static void writeSpecies(int pos)
+	{
+		
 	}
 
 	static void encryptAllStrings()
