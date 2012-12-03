@@ -19,15 +19,16 @@ public class PokeExport
 	public static void main(String[] args) throws Exception
 	{
 		initVars();
-
-
+		fixChecksum();
+		
+		printDetailedParty();
 //		printBytes(readOT(26));
 
-		printAllPokemonDetails();
+//		printAllPokemonDetails();
 
 //						printHexTable();
 		//				printParty();
-		//				printDetailedParty();
+//						printDetailedParty();
 		//		for (int x=0; x<14; x++)
 		//				printBox(x);
 		//		
@@ -46,15 +47,15 @@ public class PokeExport
 	//	 * @param b	the full 32 bit string for PKMN data
 	//	 * @return
 	//	 */
-	//	static byte[] spoofBytes(byte[] b)
-	//	{
-	//		byte[] newbytes = new byte[48];
-	//		
-	//		// copy over old array
-	//		for (int x=0; x<32; x++)
-	//			newbytes[x] = b[x];
-	//		
-	//	}
+//		static byte[] spoofBytes(byte[] b)
+//		{
+//			byte[] newbytes = new byte[48];
+//			
+//			// copy over old array
+//			for (int x=0; x<32; x++)
+//				newbytes[x] = b[x];
+//			
+//		}
 
 	private static void printAllPokemonDetails() 
 	{
@@ -167,10 +168,7 @@ public class PokeExport
 	}
 
 	private static String parseIV(byte[] b)
-	{
-
-		String output = "";
-		
+	{		
 		int attack = getUnsigned((b[43] >> 4) & 0xf);
 		int defense =  getUnsigned((b[43] >> 0) & 0xf);
 		int speed = getUnsigned((b[44] >> 4) & 0xf);
@@ -420,7 +418,40 @@ public class PokeExport
 	 */
 	public static void fixChecksum()
 	{
-
+        int start = 8201;
+        int size = 2938;
+        int new_checksum = 0;
+        
+        int new_checksum1 = 0;
+        int new_checksum2 = 0;
+        
+        int old_checksum1 = (getUnsigned(data[11533]));
+        int old_checksum2 = (getUnsigned(data[11534]));
+        int old_checksum = old_checksum1*256 + old_checksum2;
+        
+        for (int x=0; x<size; x++)
+        {
+            new_checksum += getUnsigned(data[x+start]);
+            new_checksum &= 65535;
+        }
+        
+        new_checksum2 = (new_checksum/256);
+        new_checksum1 = (new_checksum%256);
+        
+        new_checksum = new_checksum1*256 + new_checksum2;
+        
+        System.out.printf( "checksum SHOULD be %x, it is set to %x\n", new_checksum, old_checksum);
+        
+        boolean ok = false;
+        
+        if (new_checksum == old_checksum)
+            ok = true;
+            
+        
+        
+//        self.checksum = checksum
+//        self.setbyte(0x2d0d,checksum & 255)
+//        self.setbyte(0x2d0e,(checksum >> 8) & 255)
 	}
 
 	/**
