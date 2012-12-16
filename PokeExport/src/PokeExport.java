@@ -25,30 +25,13 @@ public class PokeExport
 	public static void main(String[] args) throws Exception
 	{
 		initVars();
-//		byte[] poke1 = readPokemonFromFile(7);
-//		writePokemonToFile(poke1, 8);
-//		writeFile();
+//		
+		byte[] poke1 = readPokemonFromData(getPosition(2,1));
+
+//		System.out.println(parsePkm(poke1));
 		
-		printAllPokemonDetails();
-
-		//		printBytes(readOT(26));
-
-		//		printAllPokemonDetails();
-
-		//						printHexTable();
-		//				printParty();
-		//						printDetailedParty();
-		//		for (int x=0; x<14; x++)
-		//				printBox(x);
-		//		
-
-		//		System.out.println(parsePkm(readPokemonFromFile(26)));
-		//System.out.println();
-
-		//		readPkmFile(0);
-
-
-
+		exportPokemon(poke1);
+		exportPokemon(readPokemonFromData(getPosition(1,2)));
 	}
 
 	//	/**
@@ -65,18 +48,32 @@ public class PokeExport
 	//				newbytes[x] = b[x];
 	//			
 	//		}
+		
+	/**
+	 * This methods returns a position (0-259) given a box 
+	 * number and a position in that box. 
+	 * 
+	 * 0 is the party in this case, and 1 is the real box number 1.
+	 */
+	public static int getPosition(int box, int place)
+	{
+		return (box==0)? place : (place+5)+(box-1)*20;
+	}
 
+	/**
+	 * Prints all Pokemon Detail everywhere
+	 */
 	private static void printAllPokemonDetails() 
 	{
 		// Print party
 		for (int x=0; x<getPartySize(); x++)
-			System.out.println(parsePkm(readPokemonFromFile(x)));
+			System.out.println(parsePkm(readPokemonFromData(x)));
 
 		//Print all 14 boxes
 		for (int x=0; x<14; x++)
 		{
 			for (int y=0; y<getBoxSize(x); y++)
-				System.out.println(parsePkm(readPokemonFromFile(x*20+y+6)));
+				System.out.println(parsePkm(readPokemonFromData(x*20+y+6)));
 		}
 	}
 
@@ -109,14 +106,43 @@ public class PokeExport
 	private static void printDetailedParty() 
 	{
 		for (int x=0; x<getPartySize(); x++)
-			System.out.println(parsePkm(readPokemonFromFile(x)));	
+			System.out.println(parsePkm(readPokemonFromData(x)));	
 	}
 
-	private static int getBoxNumber(int pos)
+	/**
+	 * Gets what NUMBER the pokemon is in the box.
+	 * For example, position number 124 would be number 4 in its box
+	 * 
+	 * @param pos	the long number representing the location on the cartridge
+	 * @return		the pokemon's position in the box
+	 */
+	private static int getPositionInBox(int pos)
 	{
 		return ((pos-6)%20);
 	}
+	
+	/**
+	 * Returns the box that the pokemon is actually in 
+	 * 
+	 * @param pos
+	 * @return
+	 */
+	private static int getNumberOfBox(int pos)
+	{
+		return (pos-6)/20;
+	}
 
+	/**
+	 * Returns the position of the Other Species byte from a boxed pokemon
+	 * 
+	 * @param pos
+	 * @return
+	 */
+	private static int getOtherSpeciesFromBox(int pos)
+	{
+		return 16385+1104*getNumberOfBox(pos)+getPositionInBox(pos);
+	}
+	
 	private static int getBoxSize(int box)
 	{
 		box++;
@@ -315,7 +341,7 @@ public class PokeExport
 	 * @param index	The number of the pokemon to be exported 0-285
 	 * @return The combined byte array representing a full pokemon, name, and OT
 	 */
-	public static byte[] readPokemonFromFile(int index)
+	public static byte[] readPokemonFromData(int index)
 	{
 		byte[] datap;
 
@@ -358,7 +384,7 @@ public class PokeExport
 	 * @param b	the entire set of bytes of pokemon data
 	 * @param index	the slot to write the pokemon to
 	 */
-	public static void writePokemonToFile(byte[] b, int index)
+	public static void writePokemonToData(byte[] b, int index)
 	{
 		
 		byte[] namedata = new byte[11];
@@ -380,6 +406,7 @@ public class PokeExport
 		writeNickName(namedata, index);
 		writeOT(otnamedata, index);
 		writePkmnData(pkmdata, index);
+		writeOtherSpecies(pkmdata[0], index);
 
 	}
 
@@ -454,7 +481,7 @@ public class PokeExport
 		if (pos>=6)
 		{
 			begin = (int) (16384+1104*Math.floor(((pos-6)/20))+22);
-			begin+=32*getBoxNumber(pos);
+			begin+=32*getPositionInBox(pos);
 		}
 		else
 			begin+=48*pos;
@@ -482,6 +509,8 @@ public class PokeExport
 	 * Writes the passed bytes to the data array, should be called when inserting into
 	 * a slot a certain array of bytes
 	 * 
+	 * This method also writes the mirror copy of the party data
+	 * 
 	 * @param b		The pokemon data that is going to be written
 	 * @param pos	What slot to write the data to
 	 */
@@ -489,11 +518,12 @@ public class PokeExport
 	{
 		// pos 1-6 is party, from then on is box
 		int begin = 6765; 
+//		int mirror = 2866;
 
 		if (pos>=6)
 		{
 			begin = (int) (16384+1104*Math.floor(((pos-6)/20))+22);
-			begin+=32*getBoxNumber(pos);
+			begin+=32*getPositionInBox(pos);
 		}
 		else
 			begin+=48*pos;
@@ -592,7 +622,7 @@ public class PokeExport
 		if (pos>=6)
 		{
 			begin = (int) (16384+1104*Math.floor(((pos-6)/20))+22);
-			begin+=32*getBoxNumber(pos);
+			begin+=32*getPositionInBox(pos);
 		}
 		else
 			begin+=48*pos;
@@ -608,7 +638,7 @@ public class PokeExport
 			else
 			{
 				//				System.out.print((char)(convertPokeText(getUnsigned((data[begin+x+860-21*((pos-6)%20)])))));
-				name[x]=data[begin+x+860-21*getBoxNumber(pos)];
+				name[x]=data[begin+x+860-21*getPositionInBox(pos)];
 			}
 
 		}
@@ -631,7 +661,7 @@ public class PokeExport
 		if (pos>=6)
 		{
 			begin = (int) (16384+1104*Math.floor(((pos-6)/20))+22);
-			begin+=32*getBoxNumber(pos);
+			begin+=32*getPositionInBox(pos);
 		}
 		else
 			begin+=48*pos;
@@ -647,7 +677,7 @@ public class PokeExport
 			else
 			{
 				//				System.out.print((char)(convertPokeText(getUnsigned((data[begin+x+860-21*((pos-6)%20)])))));
-				data[begin+x+860-21*getBoxNumber(pos)]=b[x];
+				data[begin+x+860-21*getPositionInBox(pos)]=b[x];
 			}
 
 		}
@@ -730,6 +760,12 @@ public class PokeExport
 		fis.read(data, 0, data.length);
 	}
 
+	/**
+	 * Writes the data in memory (data array) back to the file.
+	 * Also calls fix checksum.
+	 * 
+	 * @throws IOException
+	 */
 	public static void writeFile() throws IOException
 	{
 		// Open file output stream for writing
@@ -738,7 +774,74 @@ public class PokeExport
 		fixChecksum();
 
 		fos.write(data);
+		fos.close();
 
+	}
+	
+	public static int generateByteChecksum(byte[] pokemon)
+	{
+		int sum = 0;
+		
+		for (byte b : pokemon)
+			sum+=getUnsigned(b);
+		
+		return Integer.parseInt(""+(sum % 256), 16);
+	}
+	
+	/**
+	 * Exports an array of pokemon bytes to a file. This file can be imported and
+	 * then traded with other users.
+	 * 
+	 * @param b		the set of bytes representing a pokemon
+	 * @throws IOException	
+	 */
+	public static void exportPokemon(byte[] b) throws IOException
+	{
+		new File("Pokemon").mkdir();
+		
+		String name = parseNickname(b).replace("\0", "");
+		
+		String species = name.toUpperCase().equals(name)? parseSpecies(b).toUpperCase() : parseSpecies(b);
+		species = species.replace("\0", "");
+		
+		File f = new File("Pokemon/"+name+" the "+species+" ("+generateByteChecksum(b)+").2pkm");
+		
+		f.createNewFile();
+		FileOutputStream fos = new FileOutputStream(f);
+		
+		fos.write(b);
+		fos.close();
+	}
+	
+	/**
+	 * Makes a list of files that represent current Pokemon stored in memory
+	 * 
+	 * @return	list of files representing the pokemon
+	 */
+	public static File[] listAllPokemonFiles()
+	{
+		return new File("Pokemon").listFiles();	
+	}
+	
+	/**
+	 * Loads a set of pokemon byte data
+	 * 
+	 * @param filename
+	 * @return
+	 * @throws IOException
+	 */
+	public static byte[] loadPokemon(File f) throws IOException
+	{		
+		// Create byte array for data to go in
+		byte[] b = new byte[(int) f.length()];
+
+		// Open file for reading
+		FileInputStream fis = new FileInputStream(f);
+
+		// Put bytes from file into byte array
+		fis.read(b, 0, b.length);
+		
+		return b;
 	}
 
 	public static File chooseFile()
@@ -753,8 +856,8 @@ public class PokeExport
 
 	public static void initVars() throws IOException
 	{
-//		pokesav = new File("/Users/Ricky/Library/Application Support/Bannister/KiGB/Battery RAM/Pokemon Crystal.sav");
-		pokesav = chooseFile();
+		pokesav = new File("/Users/Ricky/Library/Application Support/Bannister/KiGB/Battery RAM/Pokemon Crystal.sav");
+//		pokesav = chooseFile();
 
 		// Loads the file that was just chosen
 		loadFile();
@@ -938,9 +1041,41 @@ public class PokeExport
 	 * This method writes the species value which is apparently randomly used 
 	 * @param pos
 	 */
-	public static void writeSpecies(int pos)
+	public static void writeOtherSpecies(byte b, int pos)
 	{
+		int begin = 6765; 
+
+		if (pos>=6)
+		{
+			begin = (16385+1104*getNumberOfBox(pos))+getPositionInBox(pos);
+			System.out.println(pokemon[getUnsigned(data[begin])]);
+		}
+		else
+		{
+			begin-=7;
+			begin+=pos;
+		}
 		
+		data[begin] = b;
+	}
+	
+	/**
+	 * Returns the value representing the other species value
+	 * @param pos
+	 */
+	public static String parseOtherSpecies(int pos)
+	{
+		int begin = 6765; 
+
+		if (pos>=6)
+		{
+			begin = getOtherSpeciesFromBox(pos);
+		}
+		else
+			begin-=7-pos;
+		
+//		System.out.println(pos);
+		return (pokemon[getUnsigned(data[begin])]);
 	}
 
 	static void encryptAllStrings()
