@@ -1,0 +1,166 @@
+Pokemon Exporting Tool
+    - functions fully for second generation as of right now.
+    
+Terminology:
+
+Position:
+    All Pokemon in the game are assigned a position from 0 to 249,
+    representing their location in the six party slots and fourteen
+    boxes. It's a little tricky to think about them in order, so you
+    can use getPosition() to return a Position value with a given box
+    and slot. See below.
+    
+byte[] Pokemon:
+    There are no Pokemon objects at this time in the API. Instead, a
+    byte array represents a Pokemon. In this program, if you see a 
+    byte array being passed around, it probably means that it's passing
+    an entire Pokemon around to either export it or read data. You'd also
+    pass a pokemon around to write it to a specific Position in the data.
+    
+data array:
+    The data array reperesenting every byte in the cartridge. This is 
+    stored in memory, and then written back to the file with writeFile().
+    
+    
+Common methods:
+
+initVars()      
+    - load a pokemon.sav file. Hardcode the path or launch a browser.
+    - must be called first in order to do anything with data.
+                
+
+getPosition(int box, int slot)
+    - returns an integer representing a pokemon's Position in the given
+      box and slot. For example, getPosition(2,1) gives you the first 
+      pokemon in the second box, which is represented by 25.
+      
+readPokemonFromData(int pos)
+    - returns a byte array representing a Pokemon given a Position.
+    - this byte array can then be passed around, exported or parsed.
+    
+exportPokemon(byte[] pokemon)
+    - exports a pokemon to a filename. It is stored by default in 
+      Pokemon directory, with a filename including it's nickname,
+      species, and a checksum representing its information.
+      
+listAllPokemonFiles()
+    - returns an array of File objects representing Pokemon that
+      have been exported. These can be passed to importPokemon
+      
+*importPokemon(File f)
+    - imports a given .2pkm file to a byte array (returns).
+    
+writePokemonToData(byte[] b, int pos)
+    - writes a Pokemon to the data array that is stored in memory.
+    - writes to the given position, as well as OtherSpecies byte.
+
+writeFile()
+    - writes the data array to the file, and generates the checksum.
+    - should be called after a file operation is done (eg. moving data)
+      to ensure that everything is insync in memory and data.
+      
+parsePkm(byte[] pokemon)
+    - returns a string detailing all information that is represented in
+      the pokemon byte array in human readable format.
+      
+printAllPokemonDetails()
+    - Does what it says! Prints information on all Pokemon in party and box.
+    
+    
+Pokemon Data Structure
+
+The file structure of a .2pkm file is 54 bytes:
+    
+        11 for the nickname of the Pokemon
+        8 for the Original Trainer name
+        3 unused bytes
+        32 for the actual PKM data
+        
+Unused bytes may be used to pass around file information between future
+versions of the program.
+
+Here is an example of some raw data using printBytes(byte[] pokemon):
+    91 8E 82 8A 98 50 50 50 50 50 50 8A 98 8B 84 50 50 50 50 00 00 00 5F 00 21 67 14 58 BF 1E 00 2A E2 09 03 09 06 08 A8 0A 17 08 2F 96 66 23 28 14 0F B2 00 00 7E 16 
+    
+To break this down as it is broken down above:
+    
+    Nickname bytes: 
+    
+    91 8E 82 8A 98 50 50 50 50 50 50
+     R  O  C  K  Y 
+    
+    8A 98 8B 84 50 50 50 50 
+     K  Y  L  E
+    
+    00 00 00 
+    three unused as of right now bytes
+    
+    5F 00 21 67 14 58 BF 1E 00 2A E2 09 03 09 06 08 A8 0A 17 08 2F 96 66 23 28 14 0F B2 00 00 7E 16 
+    32 PKM bytes, 5F is Onix, which you can read by calling:
+    parseSpecies(byte[] pokemon) on the whole pokemon byte array. The rest
+    is this information, generated with parsePkm(byte[] poke):
+        Level: 22
+        Gender: Male
+        Hold Item: None
+        Moveset: Tackle / Screech / Bind / Rock Throw
+        Experience: 10978
+        EVs: 2307 HP / 2310 ATK / 2216 DEF / 2583 SPEED / 2095 SPECIAL
+        IVs: 9 ATK / 6 DEF / 6 SPEED / 6 SPECIAL
+        Happiness: 178
+        PokeRus: false
+        Met at Level: 0
+        Time of Day: No Data
+        Location: Can't tell
+        Trainer ID: 48926
+        Trainer Gender: Male
+        
+Examples:
+
+    initVars()
+        - load up the game with one save file.
+
+    System.out.println(parsePkm(readPokemonFromData(getPosition(3,1))));
+        - prints out information on pokemon in box 3 slot 1.
+        
+    byte[] poke1 = readPokemonFromData(getPosition(2,4));
+        - stores pokemon in box 2 slot 4 to the poke1 object
+        
+    writePokemonToData(poke1, getPosition(2,5)):
+        - would make a copy of the pokemon in box 2 in slot 5 as well
+        
+    exportPokemon(poke1);
+        - exports the poke1 object to a file
+        
+    ** restart the program **
+        
+    initVars() 
+        - load up the game with a different save file
+        
+    File file = listAllPokemonFiles()[0];
+        - loads a pokemon file, this assumes that the Pokemon directory is 
+          empty.
+    
+    byte[] newp = importPokemon(file);
+        - imports the Pokemon to newp object.
+        
+    writePokemonToData(newp, getPosition(1,1));
+        - writes the exported pokemon data from the first game, to box 1
+          slot 1 in the other game. Traded pokemon!
+          
+
+Things to fix:
+
+    Adjust box count, (right now, pokemon can't be added in slots that don't
+                       already have pokemon in them)
+                       
+    Read box names,  (for ease of use)
+    
+    Properly write party data,      (will work 1/2 the time right now, due to
+                                     the mirror copy of the party data)
+    
+    importFile(),   (to actually import data to bytes)
+    
+    loadFile(),     (instead of calling initVars() all the time)
+    
+    and other things!
+    
