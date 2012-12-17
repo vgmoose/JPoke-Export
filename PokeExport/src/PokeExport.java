@@ -19,7 +19,7 @@ public class PokeExport
 	static String[] locations = {"y0KOvsv", "ybdKYv!DK[0d5", "e0nsbKM*", "TSb!!ZX!0ibKTNsZ", "e0nsbKHW", "e0nsbKHR", "QN0?bsKTNsZ", "`+!0nsK[0db!", "e0nsbKHM", "enN5xK0]K^?+S", "V5N05KTvib", "e0nsbKHH", "^Uv?bvK[0d5", "`?0d+0DbKLb??", "6?b_KE0!bxs", "e0nsbKHC", "@0?gb5!0gKTNsZ", "evgN0K[0db!", "e0nsbKH>", "yvsN05v?Kov!D", "e0nsbKH9", "e0nsbKH4", "Jl!nsbvDKTNsZ", "[N5K[0db!", "Yn!5bgK[0db!", "e0nsbKH/", "e0nsbKH*", "t?NiN5bKTNsZ", "'NXSsS0nxb", "Yvss?bK[0db!", "e0nsbKCW", "LSN!?K6x?v5gx", "e0nsbKCR", "TNv5d00gKTNsZ", "e0nsbKCM", "\"saK\"0!sv!", "\"vS0Xv5ZK[0d5", "e0nsbKCH", "'vDbK0]KevXb", "e0nsbKCC", "6lbKovsS", "Y?vlDsS0!5KTNsZ", "O!vX05(xKOb5", "e0nsbKC>", "Ov!DKTvib", "e0nsbKC9", "`N?ib!KTvib", "ov??bsK[0d5", "e0nsbKR", "QN!NgNv5KTNsZ", "e0nsbKM", "obdsb!KTNsZ", "e0nsbKH", "\"saK\"005", "e0nsbKC", "Tb!n?bv5KTNsZ", "e0nsbKMC", "e0nsbKM>", "e0nsbK>", "V5gb!X!0n5g", "e0nsbK9", "Qb!:N?N05KTNsZ", "ONX?bss(xKTvib", "e0nsbK4", "e0nsbK/", "e0nsbK*", "e0lDK[n55b?", "e0nsbKRW", "o0db!Ko?v5s", "'vib5gb!K[0d5", "'viaKevgN0K[0db!", "Tb?vg05KTNsZ", "`v]]!05KTNsZ", "e0nsbKRR", "e0nsbKRM", "e0nsbKRH", "e0nsbKRC", "e0nsbKR>", "e0nsbKR9", "e0nsbKR4", "e0nsbKR/", "EnlSxNvKTNsZ", "e0nsbKR*", "e0nsbKMW", "`bv]0v:K6x?v5gx", "TN55vqv!K6x?v5g", "e0nsbKMR", "e0nsbKMM", "QNls0!ZKe0vg", "e0nsbKMH", "65gNX0Ko?vsbvn", "e0nsbKM9", "e0nsbKM4", "[0SI0KEv??x", "e0nsbKM/", "EvxsK`SN+", "V5D50d5", "V5D50d5", "V5D50d5", "V5D50d5", "V5D50d5", "V5D50d5", "V5D50d5", "V5D50d5", "V5D50d5", "V5D50d5", "V5D50d5", "V5D50d5", "V5D50d5", "V5D50d5", "V5D50d5", "V5D50d5", "V5D50d5", "V5D50d5", "V5D50d5", "V5D50d5", "V5D50d5", "V5D50d5", "V5D50d5", "V5D50d5", "V5D50d5", "V5D50d5", "V5D50d5", "V5D50d5", "V5D50d5", "J:+sZ", "Tv5(sKsb??", "`+blNv?"};
 	//	static String[] locationmapping = {"0","126","177","127","178","179","139","204","180","209","143","181","129","211","214","182","131","208","183","207","184","185","133","205","206","186","187","132","212","205","188","218","189","130","190","216","134","191","135","192","217","136","222","193","220","194","137","138","149","224","150","140","151","198","152","141","172","173","153","210","154","221","197","155","156","157","200","158","201","142","0","144","148","159","160","161","162","163","164","165","166","145","167","168","203","146","169","170","128","171","147","174","175","223","176","226"};	
 
-	private static double[] genders = {-1,0.875,0.875,0.875,0.875,0.875,0.875,0.875,0.875,0.875,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0,0,0,1,1,1,0.25,0.25,0.25,0.25,0.25,0.25,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.75,0.75,0.5,0.5,0.5,0.75,0.75,0.75,0.75,0.75,0.75,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,-1,-1,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,-1,-1,0.5,0.5,0.5,0.5,1,1,0.5,0.5,0.5,0.5,0.5,0,0.5,0,0.5,0.5,0.5,0.5,-1,-1,0.5,0.5,0,0.75,0.75,0.5,1,0.5,0.5,0.5,-1,0.875,0.875,0.875,0.875,-1,0.875,0.875,0.875,0.875,0.875,0.875,-1,-1,-1,0.5,0.5,0.5,-1,-1,0.875,0.875,0.875,0.875,0.875,0.875,0.875,0.875,0.875,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.25,0.25,0.875,0.875,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.875,0.875,0.5,0.5,0.5,-1,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.25,0.25,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.25,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,-1,0.5,0.5,1,1,0,0.75,0.75,0,0,-1,-1,-1,0.5,0.5,0.5,-1,-1,-1};
+	static double[] genders = {-1,0.875,0.875,0.875,0.875,0.875,0.875,0.875,0.875,0.875,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0,0,0,1,1,1,0.25,0.25,0.25,0.25,0.25,0.25,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.75,0.75,0.5,0.5,0.5,0.75,0.75,0.75,0.75,0.75,0.75,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,-1,-1,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,-1,-1,0.5,0.5,0.5,0.5,1,1,0.5,0.5,0.5,0.5,0.5,0,0.5,0,0.5,0.5,0.5,0.5,-1,-1,0.5,0.5,0,0.75,0.75,0.5,1,0.5,0.5,0.5,-1,0.875,0.875,0.875,0.875,-1,0.875,0.875,0.875,0.875,0.875,0.875,-1,-1,-1,0.5,0.5,0.5,-1,-1,0.875,0.875,0.875,0.875,0.875,0.875,0.875,0.875,0.875,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.25,0.25,0.875,0.875,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.875,0.875,0.5,0.5,0.5,-1,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.25,0.25,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.25,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,-1,0.5,0.5,1,1,0,0.75,0.75,0,0,-1,-1,-1,0.5,0.5,0.5,-1,-1,-1};
 
 	// base stats
 	static int[] base_hp = {-1, 45, 60, 80, 39, 58, 78, 44, 59, 79, 45, 50, 60, 40, 45, 65, 40, 63, 83, 30, 55, 40, 65, 35, 60, 35, 60, 50, 75, 55, 70, 90, 46, 61, 81, 70, 95, 38, 73, 115, 140, 40, 75, 45, 60, 75, 35, 60, 60, 70, 10, 35, 40, 65, 50, 80, 40, 65, 55, 90, 40, 65, 90, 25, 40, 55, 70, 80, 90, 50, 65, 80, 40, 80, 40, 55, 80, 50, 65, 90, 95, 25, 50, 52, 35, 60, 65, 90, 80, 105, 30, 50, 30, 45, 60, 35, 60, 85, 30, 55, 40, 60, 60, 95, 50, 60, 50, 50, 90, 40, 65, 80, 105, 250, 65, 105, 30, 55, 45, 80, 30, 60, 40, 70, 65, 65, 65, 65, 75, 20, 95, 130, 48, 55, 130, 65, 65, 65, 35, 70, 30, 60, 80, 160, 90, 90, 90, 41, 61, 91, 106, 100, 45, 60, 80, 39, 58, 78, 50, 65, 85, 35, 85, 60, 100, 40, 55, 40, 70, 85, 75, 125, 20, 50, 90, 35, 55, 40, 65, 55, 70, 90, 75, 70, 100, 70, 90, 35, 55, 75, 55, 30, 75, 65, 55, 95, 65, 95, 60, 95, 60, 48, 190, 70, 50, 75, 100, 65, 75, 60, 90, 65, 70, 20, 80, 55, 60, 90, 40, 50, 50, 100, 55, 35, 75, 45, 65, 65, 45, 75, 75, 90, 90, 85, 73, 55, 35, 50, 45, 45, 45, 95, 255, 90, 115, 100, 50, 70, 100, 106, 106, 100};
@@ -29,43 +29,64 @@ public class PokeExport
 	static int[] base_spdef = {-1, 65, 80, 100, 50, 65, 85, 64, 80, 105, 20, 25, 80, 20, 25, 80, 35, 50, 70, 35, 70, 31, 61, 54, 79, 40, 80, 30, 55, 40, 55, 85, 40, 55, 75, 65, 90, 65, 100, 25, 50, 40, 75, 65, 75, 90, 55, 80, 55, 75, 45, 70, 40, 65, 50, 80, 45, 70, 50, 80, 40, 50, 90, 55, 70, 85, 35, 60, 85, 30, 45, 60, 100, 120, 30, 45, 65, 65, 80, 40, 80, 55, 70, 62, 35, 60, 70, 95, 50, 100, 25, 45, 35, 55, 75, 45, 90, 115, 25, 50, 55, 80, 45, 65, 50, 80, 110, 110, 75, 45, 70, 30, 45, 105, 40, 80, 25, 45, 50, 80, 55, 85, 120, 80, 95, 85, 85, 70, 70, 20, 100, 95, 48, 65, 95, 95, 110, 75, 55, 70, 45, 70, 75, 110, 125, 90, 85, 50, 70, 100, 90, 100, 65, 80, 100, 50, 65, 85, 48, 63, 83, 45, 55, 56, 96, 80, 110, 40, 60, 80, 56, 76, 35, 55, 20, 65, 105, 45, 70, 45, 60, 90, 100, 50, 80, 65, 100, 55, 65, 85, 55, 30, 85, 45, 25, 65, 95, 130, 42, 110, 85, 48, 58, 65, 35, 60, 65, 65, 65, 40, 60, 55, 80, 230, 95, 75, 50, 75, 40, 80, 30, 60, 85, 35, 75, 45, 140, 70, 50, 80, 95, 40, 60, 95, 65, 45, 35, 110, 65, 55, 55, 70, 135, 100, 75, 115, 50, 70, 100, 154, 154, 100};
 	static int[] base_speed = {-1, 45, 60, 80, 65, 80, 100, 43, 58, 78, 45, 30, 70, 50, 35, 75, 56, 71, 91, 72, 97, 70, 100, 55, 80, 90, 100, 40, 65, 41, 56, 76, 50, 65, 85, 35, 60, 65, 100, 20, 45, 55, 90, 30, 40, 50, 25, 30, 45, 90, 95, 120, 90, 115, 55, 85, 70, 95, 60, 95, 90, 90, 70, 90, 105, 120, 35, 45, 55, 40, 55, 70, 70, 100, 20, 35, 45, 90, 105, 15, 30, 45, 70, 60, 75, 100, 45, 70, 25, 50, 40, 70, 80, 95, 110, 70, 42, 67, 50, 75, 100, 140, 40, 55, 35, 45, 87, 76, 30, 35, 60, 25, 40, 50, 60, 90, 60, 85, 63, 68, 85, 115, 90, 105, 95, 105, 93, 85, 110, 80, 81, 60, 48, 55, 65, 130, 65, 40, 35, 55, 55, 80, 130, 30, 85, 100, 90, 50, 70, 80, 130, 100, 45, 60, 80, 65, 80, 100, 43, 58, 78, 20, 90, 50, 70, 55, 85, 30, 40, 130, 67, 67, 60, 15, 15, 20, 40, 70, 95, 35, 45, 55, 50, 40, 50, 30, 70, 50, 80, 110, 85, 30, 30, 95, 15, 35, 110, 65, 91, 30, 85, 48, 33, 85, 15, 40, 45, 85, 30, 30, 45, 85, 65, 5, 85, 115, 40, 55, 20, 30, 50, 50, 35, 65, 45, 75, 70, 70, 65, 95, 85, 40, 50, 60, 85, 75, 35, 70, 65, 95, 83, 100, 55, 115, 100, 85, 41, 51, 61, 110, 90, 100};
 
-
-	
 	public static void main(String[] args) throws Exception
 	{
 		initVars();
-//		
-		byte[] poke1 = readPokemonFromData(getPosition(2,1));
 
-//		System.out.println(parsePkm(poke1));
-		File[] list = listAllPokemonFiles();
-		for (File f : list)
-			System.out.println(f.toString());
-		
-		printBytes(poke1);
+		byte[] poke1 = readPokemonFromData(getPosition(0,1));
+
+		exportPokemon(poke1);
+
+
+		byte[] poke2 = importPokemon(listAllPokemonFiles()[0]);
+
 		System.out.println(parsePkm(poke1));
-//		exportPokemon(readPokemonFromData(getPosition(1,2)));
+
+		writePokemonToData(poke1, getPosition(1,1));
+
+		writeFile();
+
+		//		//		
+		//		byte[] poke1 = readPokemonFromData(getPosition(2,1));
+		//
+		//		//		System.out.println(parsePkm(poke1));
+		//		File[] list = listAllPokemonFiles();
+		//		for (File f : list)
+		//			System.out.println(f.toString());
+		//
+		//		printBytes(poke1);
+		//		System.out.println(parsePkm(poke1));
+		//		//		exportPokemon(readPokemonFromData(getPosition(1,2)));
 	}
 
-		/**
-		 * This method is useful when writing into a party slot (the extra 16 bytes need to be generated.) 
-		 * @param b	the full 32 bit string for PKMN data
-		 * @return
-		 */
-			static byte[] spoofBytes(byte[] b)
-			{
-				byte[] newbytes = new byte[48];
-				
-				// copy over old array
-				for (int x=0; x<32; x++)
-					newbytes[x] = b[x];
-				
-				
-				
-				return newbytes;
-				
-			}
-		
+	/**
+	 * This method is useful when writing into a party slot (the extra 16 bytes need to be generated.) 
+	 * @param b	the full 32 bit string for PKMN data
+	 * @return
+	 */
+	static byte[] spoofBytes(byte[] b)
+	{
+		byte[] newbytes = new byte[48];
+
+		// copy over old array
+		for (int x=0; x<32; x++)
+			newbytes[x] = b[x];
+
+		// current HP
+		//		b[34] = 
+		//		b[35] = 
+
+		// Max HP
+		//		b[36] = 
+		//		b[37] = 
+
+		// Attack
+		int atk = (int) (((getAttackIV(b[21]) + base_atk[getUnsigned(b[0])] + Math.sqrt(getEV(b, 1))/8)/50 + 5));
+
+		return newbytes;
+
+	}
+
 	/**
 	 * This methods returns a position (0-259) given a box 
 	 * number and a position in that box. 
@@ -94,7 +115,7 @@ public class PokeExport
 		}
 	}
 
-	private static String parseGender(byte[] b)
+	static String parseGender(byte[] b)
 	{
 		// get the gender ratio
 		double gender =  genders[getUnsigned(b[22])];
@@ -133,18 +154,18 @@ public class PokeExport
 	 * @param pos	the long number representing the location on the cartridge
 	 * @return		the pokemon's position in the box
 	 */
-	private static int getPositionInBox(int pos)
+	static int getPositionInBox(int pos)
 	{
 		return ((pos-6)%20);
 	}
-	
+
 	/**
 	 * Returns the box that the pokemon is actually in 
 	 * 
 	 * @param pos
 	 * @return
 	 */
-	private static int getNumberOfBox(int pos)
+	static int getNumberOfBox(int pos)
 	{
 		return (pos-6)/20;
 	}
@@ -155,12 +176,12 @@ public class PokeExport
 	 * @param pos
 	 * @return
 	 */
-	private static int getOtherSpeciesFromBox(int pos)
+	static int getOtherSpeciesFromBox(int pos)
 	{
 		return 16385+1104*getNumberOfBox(pos)+getPositionInBox(pos);
 	}
-	
-	private static int getBoxSize(int box)
+
+	static int getBoxSize(int box)
 	{
 		box++;
 		return getUnsigned(data[16384+1104*(box-1)]);
@@ -169,7 +190,6 @@ public class PokeExport
 	/**
 	 * Parses a PKM file as a string
 	 */
-
 	static String getUnknownType(byte[] b)
 	{
 		return "??"; /*TODO: this*/
@@ -203,12 +223,12 @@ public class PokeExport
 		return output;
 	}
 
-	private static String parseLevel(byte[] b) 
+	static String parseLevel(byte[] b) 
 	{
 		return ""+getUnsigned(b[53]);
 	}
 
-	private static String parseOT(byte[] b) 
+	static String parseOT(byte[] b) 
 	{
 		String output="";
 
@@ -219,18 +239,38 @@ public class PokeExport
 		return output;
 	}
 
-	private static String parseIV(byte[] b)
+	static int getAttackIV (byte b)
+	{
+		return getUnsigned((b >> 4) & 0xf);
+	}
+
+	static int getDefenseIV (byte b)
+	{
+		return getUnsigned((b >> 0) & 0xf);
+	}
+
+	static int getSpeedIV (byte b)
+	{
+		return getUnsigned((b >> 4) & 0xf);
+	}
+
+	static int getSpecialIV (byte b)
+	{
+		return getUnsigned((b >> 0) & 0xf);
+	}
+
+	static String parseIV(byte[] b)
 	{		
-		int attack = getUnsigned((b[43] >> 4) & 0xf);
-		int defense =  getUnsigned((b[43] >> 0) & 0xf);
-		int speed = getUnsigned((b[44] >> 4) & 0xf);
-		int special =  getUnsigned((b[44] >> 0) & 0xf);
+		int attack = getAttackIV(b[43]);
+		int defense =  getDefenseIV(b[43]);
+		int speed = getSpeedIV(b[44]);
+		int special = getSpecialIV(b[44]);
 
 		//		return ""+(getUnsigned(b[43])*256 + getUnsigned(b[44]));
 		return ""+attack+" ATK / "+defense+" DEF / "+speed+" SPEED / "+special+" SPECIAL";
 	}
 
-	private static String parseLevelMet(byte[] b) 
+	static String parseLevelMet(byte[] b) 
 	{
 		int a = (getUnsigned(b[51])-(b[51] & 0x80)-(b[51] & 0x40));
 
@@ -240,7 +280,7 @@ public class PokeExport
 			return ""+a;
 	}
 
-	private static String parseTime(byte[] b) 
+	static String parseTime(byte[] b) 
 	{
 		String time = (((b[51] & 0x80)!=0)?1:0)+""+(((b[51] & 0x40)!=0)?1:0);
 		String daylight;
@@ -257,22 +297,22 @@ public class PokeExport
 		return daylight;
 	}
 
-	private static String parseLocation(byte[] b) 
+	static String parseLocation(byte[] b) 
 	{
 		return locations[(getUnsigned(b[52])-(b[52] & 0x80))];
 	}
 
-	private static String parseOTGender(byte[] b) 
+	static String parseOTGender(byte[] b) 
 	{
 		return ((b[52] & 0x80)!=0)? "Female" : "Male";
 	}
 
-	private static String parsePokeRus(byte[] b) 
+	static String parsePokeRus(byte[] b) 
 	{
 		return ""+(getUnsigned(b[50])==1);
 	}
 
-	private static String parseHappy(byte[] b) 
+	static String parseHappy(byte[] b) 
 	{
 		return ""+getUnsigned(b[49]);
 	}
@@ -287,28 +327,33 @@ public class PokeExport
 		return moveset.substring(0, moveset.length()-3);
 	}
 
-	private static String parseEvs(byte[] b) 
+	static String parseEvs(byte[] b) 
 	{
 		String[] evtypes = {"HP","ATK","DEF","SPEED","SPECIAL"};
 		String sendstring="";
 
 		for (int x=0; x<5; x++)
-			sendstring+=  getUnsigned(b[33+x*2])*256 + getUnsigned(b[33+x*2+1])+ " " + evtypes[x] + " / ";
+			sendstring+= getEV(b, x)+ " " + evtypes[x] + " / ";
 
 		return sendstring.substring(0, sendstring.length()-3);
 	}
 
-	private static String parseExp(byte[] b) 
+	static int getEV(byte[] b, int x)
+	{
+		return getUnsigned(b[33+x*2])*256 + getUnsigned(b[33+x*2+1]);
+	}
+
+	static String parseExp(byte[] b) 
 	{
 		return ""+(getUnsigned(b[30])*65536 + getUnsigned(b[31])*256 + getUnsigned(b[32]));
 	}
 
-	private static String parseID(byte[] b) 
+	static String parseID(byte[] b) 
 	{
 		return ""+(getUnsigned(b[28])*256+getUnsigned(b[29]));
 	}
 
-	private static String parseMoves(byte[] b) 
+	static String parseMoves(byte[] b) 
 	{
 		String moveset = "";
 
@@ -318,12 +363,12 @@ public class PokeExport
 		return moveset.substring(0, moveset.length()-3);
 	}
 
-	private static String parseItem(byte[] b) 
+	static String parseItem(byte[] b) 
 	{
 		return items[getUnsigned(b[23])];
 	}
 
-	private static String parseSpecies(byte[] b) 
+	static String parseSpecies(byte[] b) 
 	{
 		int species = getUnsigned(b[22]);
 
@@ -340,6 +385,12 @@ public class PokeExport
 		}
 	}
 
+	/**
+	 * Returns the nickname from the byte array 
+	 * 
+	 * @param b		the pokemon byte array
+	 * @return		String representing the pokemon's nickname
+	 */
 	public static String parseNickname(byte[] b)
 	{
 		String output = "";
@@ -392,7 +443,7 @@ public class PokeExport
 		return datap;
 
 	}
-	
+
 	/**
 	 * Breaks down an entire pokemon string of bytes into three other byte
 	 * arrays and then passes them to the appropriate functions that put them
@@ -403,11 +454,11 @@ public class PokeExport
 	 */
 	public static void writePokemonToData(byte[] b, int index)
 	{
-		
+
 		byte[] namedata = new byte[11];
 		byte[] otnamedata = new byte[8];
 		byte[] pkmdata = new byte[32];
-		
+
 		// Nickname bytes
 		for (int x=0; x<11; x++)
 			namedata[x] = b[x];
@@ -419,7 +470,7 @@ public class PokeExport
 		// PKM data bytes
 		for (int x=22; x<54; x++)
 			pkmdata[x-22] = b[x];
-		
+
 		writeNickName(namedata, index);
 		writeOT(otnamedata, index);
 		writePkmnData(pkmdata, index);
@@ -455,7 +506,7 @@ public class PokeExport
 
 		return otname;
 	}
-	
+
 	/**
 	 * Writes OT bytes to the data in the appropriate slot
 	 * @param b	OT bytes
@@ -518,10 +569,10 @@ public class PokeExport
 			}
 
 		}
-		
+
 		return pkmdata;
 	}
-	
+
 	/**
 	 * Writes the passed bytes to the data array, should be called when inserting into
 	 * a slot a certain array of bytes
@@ -535,7 +586,7 @@ public class PokeExport
 	{
 		// pos 1-6 is party, from then on is box
 		int begin = 6765; 
-//		int mirror = 2866;
+		//		int mirror = 2866;
 
 		if (pos>=6)
 		{
@@ -663,7 +714,7 @@ public class PokeExport
 		// Return the string of bytes representing the name
 		return name;
 	}
-	
+
 	/**
 	 * Writes the nickname bytes to the data byte array
 	 * 
@@ -701,6 +752,11 @@ public class PokeExport
 
 	}
 
+	/**
+	 * Print out an array of bytes that is passed.
+	 * 
+	 * @param b		the byte array that is the pokemon
+	 */
 	public static void printBytes(byte[] b)
 	{
 		for (byte x : b)
@@ -717,10 +773,16 @@ public class PokeExport
 		}
 	}
 
+	/** 
+	 * Gets the size of the party 
+	 * 
+	 * @return	an integer that is the size of the party
+	 */
 	public static int getPartySize()
 	{
 		return data[6757];
 	}
+
 	/**
 	 * This method prints the entire party's names
 	 */
@@ -794,17 +856,22 @@ public class PokeExport
 		fos.close();
 
 	}
-	
+
+	/**
+	 * Generates a byte checksum to identify the pokemon in the file name
+	 * @param pokemon		byte array representing the pokemon
+	 * @return		the checksum
+	 */
 	public static int generateByteChecksum(byte[] pokemon)
 	{
 		int sum = 0;
-		
+
 		for (byte b : pokemon)
 			sum+=getUnsigned(b);
-		
+
 		return Integer.parseInt(""+(sum % 256), 16);
 	}
-	
+
 	/**
 	 * Exports an array of pokemon bytes to a file. This file can be imported and
 	 * then traded with other users.
@@ -815,21 +882,42 @@ public class PokeExport
 	public static void exportPokemon(byte[] b) throws IOException
 	{
 		new File("Pokemon").mkdir();
-		
+
 		String name = parseNickname(b).replace("\0", "");
-		
+
 		String species = name.toUpperCase().equals(name)? parseSpecies(b).toUpperCase() : parseSpecies(b);
 		species = species.replace("\0", "");
-		
+
 		File f = new File("Pokemon/"+name+" the "+species+" ("+generateByteChecksum(b)+").2pkm");
-		
+
 		f.createNewFile();
 		FileOutputStream fos = new FileOutputStream(f);
-		
+
 		fos.write(b);
 		fos.close();
 	}
-	
+
+	/**
+	 * Reads a pokemon byte stream from a file that is passed into it.
+	 * 
+	 * @param f		The filename of the pokemon to be imported
+	 * @return
+	 * @throws IOException 
+	 */
+	public static byte[] importPokemon(File f) throws IOException
+	{
+		// Create byte array for data to go in
+		byte[] by = new byte[(int) f.length()];
+
+		// Open file for reading
+		FileInputStream fis = new FileInputStream(f);
+
+		// Put bytes from file into byte array
+		fis.read(by, 0, by.length);
+
+		return by;
+	}
+
 	/**
 	 * Makes a list of files that represent current Pokemon stored in memory
 	 * 
@@ -839,7 +927,7 @@ public class PokeExport
 	{
 		return new File("Pokemon").listFiles();	
 	}
-	
+
 	/**
 	 * Loads a set of pokemon byte data
 	 * 
@@ -857,7 +945,7 @@ public class PokeExport
 
 		// Put bytes from file into byte array
 		fis.read(b, 0, b.length);
-		
+
 		return b;
 	}
 
@@ -874,7 +962,7 @@ public class PokeExport
 	public static void initVars() throws IOException
 	{
 		pokesav = new File("/Users/Ricky/Library/Application Support/Bannister/KiGB/Battery RAM/Pokemon Crystal.sav");
-//		pokesav = chooseFile();
+		//		pokesav = chooseFile();
 
 		// Loads the file that was just chosen
 		loadFile();
@@ -972,7 +1060,7 @@ public class PokeExport
 		}
 	}
 
-	private static void decryptAllStrings()
+	static void decryptAllStrings()
 	{
 		items = decryptStrings(items);
 		pokemon = decryptStrings(pokemon);
@@ -980,7 +1068,7 @@ public class PokeExport
 		locations = decryptStrings(locations);
 	}
 
-	private static String[] decryptStrings(String[] strings)
+	static String[] decryptStrings(String[] strings)
 	{
 		for (int x=0; x<strings.length; x++)
 		{
@@ -1022,10 +1110,10 @@ public class PokeExport
 			begin-=7;
 			begin+=pos;
 		}
-		
+
 		data[begin] = b;
 	}
-	
+
 	/**
 	 * Returns the value representing the other species value
 	 * @param pos
@@ -1040,8 +1128,8 @@ public class PokeExport
 		}
 		else
 			begin-=7-pos;
-		
-//		System.out.println(pos);
+
+		//		System.out.println(pos);
 		return (pokemon[getUnsigned(data[begin])]);
 	}
 }
