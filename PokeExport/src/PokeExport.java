@@ -45,7 +45,7 @@ public class PokeExport
 	{
 		initVars();
 		
-		printAllPokemonNames();
+//		printAllPokemonNames();
 //		addPokemonToBox(importPokemon(listAllPokemonFiles()[1]), 2);
 //		addPokemonToBox(importPokemon(listAllPokemonFiles()[1]), 3);
 //		addPokemonToBox(importPokemon(listAllPokemonFiles()[1]), 3);
@@ -111,24 +111,24 @@ public class PokeExport
 	 * 
 	 * 0 is the party in this case, and 1 is the real box number 1.
 	 */
-	public  int getPosition(int box, int place)
+	public static int getPosition(int box, int place)
 	{
 		return (box==0)? place-1 : (place+5)+(box-1)*20;
 	}
 	
-	/**
-	 * Prints all pokemon names in party and boxes
-	 */
-	 void printAllPokemonNames()
-	{
-		// Print party
-		printParty();
-
-		//Print all 14 boxes
-		for (int x=0; x<14; x++)
-			if (getBoxSize(x-1) !=0)
-				printBox(x);
-	}
+//	/**
+//	 * Prints all pokemon names in party and boxes
+//	 */
+//	 void printAllPokemonNames()
+//	{
+//		// Print party
+//		printParty();
+//
+//		//Print all 14 boxes
+//		for (int x=0; x<14; x++)
+//			if (getBoxSize(x-1) !=0)
+//				parseBox(x);
+//	}
 
 	/**
 	 * Prints all Pokemon Detail everywhere
@@ -248,8 +248,11 @@ public class PokeExport
 	 */
 	 void addPokemonToParty(byte[] b)
 	{
-		if (getPartySize() == 6)
+		if (getPartySize() >= 6)
+		{
+			writePartySize(6);
 			return;		// party is full
+		}
 		
 		int newsize = getPartySize()+1;
 		
@@ -260,8 +263,11 @@ public class PokeExport
 	
 	 void addPokemonToBox(byte[] b, int box)
 	{
-		if (getBoxSize(box-1) == 20)
+		if (getBoxSize(box-2) >= 20)
+		{
+			writeBoxSize(20, box-1);
 			return; 	// box is full
+		}
 		
 		int newsize = getBoxSize(box-2)+1;
 		
@@ -742,15 +748,15 @@ public class PokeExport
 
 	}
 
-	/**
-	 * This method prints names of Pokemon from the party and all 14 boxes
-	 */
-	public  void printPokeNames()
-	{
-		printParty();
-		for (int x=0; x<14; x++)
-			printBox(x);
-	}
+//	/**
+//	 * This method prints names of Pokemon from the party and all 14 boxes
+//	 */
+//	public  void printPokeNames()
+//	{
+//		String[] s1 =parseParty();
+//		for (int x=0; x<14; x++)
+//			parseBox(x);
+//	}
 
 
 	/**
@@ -866,50 +872,44 @@ public class PokeExport
 	}
 
 	/**
-	 * This method prints the entire party's names
+	 * This method returns the entire party's names
 	 */
-	public  void printParty() //prints party's names
+	public String[] parseParty() //prints party's names
 	{
 		int party = getPartySize();
-		System.out.println("Number of Pokemon in party: "+party);
+//		System.out.println("Number of Pokemon in party: "+party);
+		String[] names = new String[party];
 
-		int begin = 10349; int inbox=0;
+//		int begin = 10349; int inbox=0;
 		for (int y=0; y<party; y++)
-		{
-			// Get the nickname
-			for (int x=0; x<11; x++)
-				System.out.print((char)(convertPokeText(getUnsigned((data[begin+x+354+inbox-37*y])))));
-			begin+=48; // advance to the next pokemon
-			if (y!=party-1)
-				System.out.print(", ");
+		{			
+			byte[] b = readPokemonFromData(y);
+
+			names[y] = parseNickname(b)+", "+parseSpecies(b);
 		}
 
-		System.out.println();
+		return names;
 	}
 
 	/**
 	 * This method prints a specific box (0-13)
 	 * @param box The number of the box (0-13) to be printed
 	 */
-	public  void printBox(int box) //prints a box's content's name 0 - 13
+	public String[] parseBox(int box) //prints a box's content's name 0 - 13
 	{
-		System.out.println("Number of Pokemon in box "+(box+1)+": "+data[16384+1104*box]);
+//		System.out.println("Number of Pokemon in box "+(box+1)+": "+data[16384+1104*box]);
 		int boxcap = data[16384+1104*box];
-
-		int begin = 16384+1104*box+22;
+		
+		String[] names = new String[boxcap];
 
 		for (int y=0; y<boxcap; y++)
 		{
-			for (int x=0; x<11; x++)
-				System.out.print((char)(convertPokeText(getUnsigned((data[begin+x+860-21*y])))));
-			begin+=32;
+			byte[] b = readPokemonFromData(getPosition(box+1, 1+y));
 			
-			if (y!=boxcap-1)
-				System.out.print(", ");
+			names[y] = parseNickname(b)+", "+parseSpecies(b);
 		}
 
-		System.out.println();
-
+		return names;
 	}
 
 	public  void loadFile() throws IOException
