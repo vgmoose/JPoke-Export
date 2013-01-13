@@ -12,6 +12,8 @@ public class PokeExport
 {
 	File pokesav; 
 	byte[] data;
+	
+	Version version;
 
 	static String[] items = {"y05b", "\"vxsb!KYv??", "V?s!vKYv??", "Y!NXSso0dgb!", "@!bvsKYv??", "o0DbKYv??", "YNlZl?b", "[b!nfxv:v", "\"005K`s05b", "^5sNg0sb", "Yn!5K;bv?", "6lbK;bv?", "^dvDb5N5X", "ov!?ZUK;bv?", "En??Kebxs0!b", "\"v_Ko0sN05", ";Z+b!Ko0sN05", "`n+b!Ko0sN05", "o0sN05", "Jxlv+bKe0+b", "eb+b?", "\"v_KJ?N_b!", "EN!bK`s05b", "[Sn5gb!xs05b", "Lvsb!K`s05b", "[b!nfxv:v", ";oKV+", "o!0sbN5", "6!05", "Tv!q0x", "'nlDZKon5lS", "Tv?lNn:", "ev!bKTv5gZ", "GK^lln!vlZ", "'bv]K`s05b", "\"bsv?Ko0dgb!", "ynXXbs", "o0DbKO0??", "En??K;bv?", "ebiNib", "\"v_KebiNib", "@nv!gK`+bla", "`n+b!Keb+b?", "\"v_Keb+b?", "ON!bK;Ns", "[b!nfxv:v", "E!bxSKLvsb!", "`0gvKo0+", "'b:05vgb", "GK^ssvlD", "[b!nfxv:v", "GKOb]b5g", "GK`+bbg", "GK`+blNv?", "T0N5KTvxb", "6sb:]N5gb!", "[b!nfxv:v", "J_+K`Sv!b", "t?gKe0g", "@00gKe0g", "`N?ib!K'bv]", "`n+b!Ke0g", "ooKV+", "JsSb!", "\"v_KJsSb!", "J?N_b!", "ebgK`lv?b", "`bl!bso0sN05", "`a`aK[NlDbs", "\"Zxsb!ZKJXX", "T?bv!KYb??", "`N?ib!KLN5X", "\"00:00K\"N?D", "jnNlDKT?vd", "o`yTn!bYb!!Z", "@0?gK'bv]", "`0]sK`v5g", "`Sv!+KYbvD", "oe=Tn!bYb!!Z", "Yn!5sKYb!!Z", "6lbKYb!!Z", "o0Nx05KYv!q", ",N5X(xKe0lD", "YNssb!KYb!!Z", "\"N5sKYb!!Z", "ebgK^+!Nl0!5", "[N5Z\"nxS!00:", "YNXK\"nxS!00:", "`N?ib!o0dgb!", "Y?nK^+!Nl0!5", "[b!nfxv:v", "^:n?bsKT0N5", "B?dK^+!Nl0!5", "@!5K^+!Nl0!5", "T?bv5xbK[vX", "\"ZxsNlKLvsb!", "[dNxsbg`+005", "LSsK^+!Nl0!5", "Y?vlDKYb?s", "Y?DK^+!Nl0!5", "[b!nfxv:v", "o5DK^+!Nl0!5", "Y?vlD@?vxxbx", "`?0d+0Db[vN?", "oN5DKY0d", "`sNlD", "`:0DbKYv??", "ybib!\"b?s6lb", "\"vX5bs", "\"N!vl?bYb!!Z", "obv!?", "YNXKobv!?", "Jib!xs05b", "`+b??K[vX", "evXbTv5gZYv!", "@`KYv??", "Y?nbKTv!g", "\"N!vl?bK`bbg", "[SNlDKT?nq", "E0lnxKYv5g", "[b!nfxv:v", "J5b!XZo0dgb!", "J5b!XZKe00s", ";bv?Ko0dgb!", "ebiNiv?K;b!q", ";v!gK`s05b", "'nlDZKJXX", "Tv!gK,bZ", "\"vlSN5bKov!s", "JXXK[NlDbs", "'0xsK6sb:", "`sv!gnxs", "`sv!KoNblb", "Yvxb:b5sK,bZ", "ovxx", "[b!nfxv:v", "[b!nfxv:v", "[b!nfxv:v", "TSv!l0v?", "Yb!!ZK1nNlb", "`l0+bK'b5x", "[b!nfxv:v", "[b!nfxv:v", "\"bsv?KT0vs", "O!vX05KEv5X", "[b!nfxv:v", "'b]s0ib!x", "[b!nfxv:v", "[b!nfxv:v", "[b!nfxv:v", "\"Zxsb!ZYb!!Z", "O!vX05K`lv?b", "Yb!xb!DK@b5b", "[b!nfxv:v", "[b!nfxv:v", "[b!nfxv:v", "`vl!bgK^xS", ";bviZKYv??", "E?0db!K\"vN?", "'bib?KYv??", "'n!bKYv??", "EvxsKYv??", "[b!nfxv:v", "'NXSsKYv??", "E!Nb5gKYv??", "\"005KYv??", "'0ibKYv??", "y0!:v?KY0_", "@0!Xb0nxKY0_", "`n5K`s05b", "o0?Dvg0sKY0d", "[b!nfxv:v", "V+f@!vgb", "Yb!!Z", "@0?gKYb!!Z", "`&nN!sY0ss?b", "[b!nfxv:v", "ov!DKYv??", "evN5q0dKLN5X", "[b!nfxv:v", "Y!NlDKoNblb", "`n!]K\"vN?", "'Nsbq?nb:vN?", "o0!s!vNs:vN?", "'0ib?ZK\"vN?", "J05K\"vN?", "\"0!+SK\"vN?", "Y?nbxDZK\"vN?", "\"nxNlK\"vN?", "\"N!vXbK\"vN?", "[b!nfxv:v", "[\"WR", "[\"WM", "[\"WH", "[\"WC", "EvDbK[\"WC", "[\"W>", "[\"W9", "[\"W4", "[\"W/", "[\"W*", "[\"RW", "[\"RR", "[\"RM", "[\"RH", "[\"RC", "[\"R>", "[\"R9", "[\"R4", "[\"R/", "[\"R*", "[\"MW", "[\"MR", "[\"MM", "[\"MH", "[\"MC", "[\"M>", "[\"M9", "[\"M4", "[\"M/", "[b!nfxv:v", "[\"M*", "[\"HW", "[\"HR", "[\"HM", "[\"HH", "[\"HC", "[\"H>", "[\"H9", "[\"H4", "[\"H/", "[\"H*", "[\"CW", "[\"CR", "[\"CM", "[\"CH", "[\"CC", "[\"C>", "[\"C9", "[\"C4", "[\"C/", "[\"C*", "[\">W", ";\"WR", ";\"WM", ";\"WH", ";\"WC", ";\"W>", ";\"W9", ";\"W4", ";\"W/", ";\"W*", ";\"RW", ";\"RR", ";\"RM", "Tv5lb?"};
 	static String[] pokemon = {"\"NxxN5X50a", "Yn?qvxvn!", "6iZxvn!", "Qb5nxvn!", "TSv!:v5gb!", "TSv!:b?b05", "TSv!NUv!g", "`&nN!s?b", "Lv!s0!s?b", "Y?vxs0Nxb", "Tvsb!+Nb", "\"bsv+0g", "Ynssb!]!bb", "Lbbg?b", ",vDn5v", "Ybbg!N??", "oNgXbZ", "oNgXb0ss0", "oNgXb0s", "evssvsv", "evsNlvsb", "`+bv!0d", "Ebv!0d", "JDv5x", "^!q0D", "oNDvlSn", "evNlSn", "`v5gxS!bd", "`v5gx?vxS", "yNg0!v5K#]z", "yNg0!N5v", "yNg0&nbb5", "yNg0!v5K#:z", "yNg0!N50", "yNg0DN5X", "T?b]vN!Z", "T?b]vq?b", "Qn?+N_", "yN5bsv?bx", "1NXX?Z+n]]", "LNXX?Zsn]]", "=nqvs", "@0?qvs", "tggNxS", "@?00:", "QN?b+?n:b", "ov!vx", "ov!vxbls", "Qb505vs", "Qb50:0sS", "ONX?bss", "OnXs!N0", "\"b0dsS", "ob!xNv5", "oxZgnlD", "@0?gnlD", "\"v5DbZ", "o!N:bv+b", "@!0d?NsSb", "^!lv5N5b", "o0?NdvX", "o0?NdSN!?", "o0?Nd!vsS", "^q!v", ",vgvq!v", "^?vDvUv:", "\"vlS0+", "\"vlS0Db", "\"vlSv:+", "Yb??x+!0ns", "Lbb+N5qb??", "QNls!bbqb?", "[b5svl00?", "[b5svl!nb?", "@b0gngb", "@!vib?b!", "@0?b:", "o05Zsv", "ev+NgvxS", "`?0d+0Db", "`?0dq!0", "\"vX5b:Nsb", "\"vX5bs05", "Ev!]bslS(g", "O0gn0", "O0g!N0", "`bb?", "ObdX05X", "@!N:b!", "\"nD", "`Sb??gb!", "T?0Zxsb!", "@vxs?Z", ";vn5sb!", "@b5Xv!", "t5N_", "O!0dUbb", ";Z+50", ",!vqqZ", ",N5X?b!", "Q0?s0!q", "J?bls!0gb", "J_bXXlnsb", "J_bXXns0!", "Tnq05b", "\"v!0dvD", ";Ns:05?bb", ";Ns:05lSv5", "'NlDNsn5X", ",0]]N5X", "LbbUN5X", "eSZS0!5", "eSZg05", "TSv5xbZ", "[v5Xb?v", ",v5XvxDSv5", ";0!xbv", "`bvg!v", "@0?gbb5", "`bvDN5X", "`sv!Zn", "`sv!:Nb", "\"!aK\"N:b", "`lZsSb!", "1Z5_", "J?blsvqnUU", "\"vX:v!", "oN5xN!", "[vn!0x", "\"vXNDv!+", "@Zv!vg0x", "'v+!vx", "ONss0", "Jbibb", "Qv+0!b05", "10?sb05", "E?v!b05", "o0!ZX05", "t:v5Zsb", "t:vxsv!", ",vqns0", ",vqns0+x", "^b!0gvlsZ?", "`50!?v_", "^!sNln50", "=v+g0x", "\"0?s!bx", "O!vsN5N", "O!vX05vN!", "O!vX05Nsb", "\"bdsd0", "\"bd", "TSND0!Nsv", "YvZ?bb]", "\"bXv5Nn:", "TZ5gv&nN?", "jnN?viv", "[Z+S?0xN05", "[0s0gN?b", "T!0l05vd", "Eb!v?NXvs!", "`b5s!bs", "En!!bs", ";00sS00s", "y0ls0d?", "'bgZqv", "'bgNv5", "`+N5v!vD", "^!Nvg0x", "T!0qvs", "TSN5lS0n", "'v5sn!5", "oNlSn", "T?b]]v", "6XX?Zqn]]", "[0Xb+N", "[0XbsNl", "yvsn", "Gvsn", "\"v!bb+", "E?vv]]Z", "^:+Sv!0x", "Yb??0xx0:", "\"v!N??", "^Un:v!N??", "`ng0d00g0", "o0?Ns0bg", ";0++N+", "`DN+?00:", "1n:+?n]]", "^N+0:", "`n5Db!5", "`n5]?0!v", "Bv5:v", "L00+b!", "jnvXxN!b", "Jx+b05", "V:q!b05", "\"n!D!0d", "`?0dDN5X", "\"Nxg!bvinx", "V50d5", "L0qqn]]bs", "@N!v]v!NX", "oN5bl0", "E0!!bs!bxx", "On5x+v!lb", "@?NXv!", "`sbb?N_", "`5nqqn??", "@!v5qn??", "jdN?]NxS", "`lNU0!", "`SnlD?b", ";b!vl!0xx", "`5bvxb?", "[bggNn!xv", "V!xv!N5X", "`?nX:v", "\"vXlv!X0", "`dN5nq", "oN?0xdN5b", "T0!x0?v", "eb:0!vNg", "tlsN??b!Z", "Ob?NqN!g", "\"v5sN5b", "`Dv!:0!Z", ";0n5g0n!", ";0n5g00:", ",N5Xg!v", "oSv5+Z", "O05+Sv5", "o0!ZX05M", "`sv5s?b!", "`:bv!X?b", "[Z!0Xnb", ";Ns:05s0+", "`:00lSn:", "J?bDNg", "\"vXqZ", "\"N?sv5D", "Y?NxxbZ", "evND0n", "J5sbN", "`nNln5b", "'v!iNsv!", "on+Nsv!", "[Z!v5Nsv!", "'nXNv", ";0f0S", "Tb?bqN", "VD50d5", "JXX", "V5D50d5", "V5D50d5"};
@@ -40,6 +42,40 @@ public class PokeExport
 	{
 		initVars();
 	}
+	
+	public void detectVersion()
+	{
+		version = new Version();
+		
+		boolean[] gens = {false, false, false, false};
+		
+		version.setVersion(3);
+
+		if (verifyChecksum())
+			gens[3] = true;
+		
+		version.setVersion(2);
+		
+		if (verifyChecksum())
+			gens[2] = true;
+		
+		int sum = 0; int last = 0;
+		
+		for (int x=0; x<gens.length; x++)
+		{
+			sum += gens[x]? 1:0;
+			
+			if (gens[x])
+				last = x;
+		}
+		
+		if (sum!=1)
+			version.setVersion(0);
+		else
+			version.setVersion(last);
+		
+			
+	}
 
 	public void othermain() throws IOException
 	{
@@ -53,8 +89,18 @@ public class PokeExport
 		//		addPokemonToBox(importPokemon(listAllPokemonFiles()[1]), 5);
 		//		writeFile();
 
-		printAllPokemonDetails();
+		//		printAllPokemonDetails();
 
+		byte[] poke = readPokemonFromData(getPosition(0,5));
+		System.out.println(parsePkm(poke));
+		writeItem(181, poke);
+		System.out.println(parsePkm(poke));
+
+		writePokemonToData(poke, getPosition(0,5));
+		writeFile();
+
+		//		printHexTable();
+		//
 		//		printAllPokemonDetails();
 
 
@@ -83,28 +129,28 @@ public class PokeExport
 	 * @param b	the full 32 bit string for PKMN data
 	 * @return
 	 */
-	//	 byte[] spoofBytes(byte[] b)
-	//	{
-	//		byte[] newbytes = new byte[48];
-	//
-	//		// copy over old array
-	//		for (int x=0; x<32; x++)
-	//			newbytes[x] = b[x];
-	//
-	//		// current HP
-	//		//		b[34] = 
-	//		//		b[35] = 
-	//
-	//		// Max HP
-	//		//		b[36] = 
-	//		//		b[37] = 
-	//
-	//		// Attack
-	//		int atk = (int) (((getAttackIV(b[21]) + base_atk[getUnsigned(b[0])] + Math.sqrt(getEV(b, 1))/8)/50 + 5));
-	//
-	//		return newbytes;
-	//
-	//	}
+	byte[] spoofBytes(byte[] b)
+	{
+		byte[] newbytes = new byte[48];
+
+		// copy over old array
+		for (int x=0; x<32; x++)
+			newbytes[x] = b[x];
+
+		// current HP
+		//		b[34] = 
+		//		b[35] = 
+
+		// Max HP
+		//		b[36] = 
+		//		b[37] = 
+
+		// Attack
+		int atk = (int) (((getAttackIV(b[21]) + base_atk[getUnsigned(b[0])] + Math.sqrt(getEV(b, 1))/8)/50 + 5));
+
+		return newbytes;
+
+	}
 
 	/**
 	 * This methods returns a position (0-259) given a box 
@@ -474,9 +520,19 @@ public class PokeExport
 		return moveset.substring(0, moveset.length()-3);
 	}
 
+	static int getItem(byte[] b)
+	{
+		return getUnsigned(b[23]);
+	}
+
+	static void writeItem(int i, byte[] b)
+	{
+		b[23] = (byte)deSign(i);
+	}
+
 	static String parseItem(byte[] b) 
 	{
-		return items[getUnsigned(b[23])];
+		return items[getItem(b)];
 	}
 
 	static String parseSpecies(byte[] b) 
@@ -727,21 +783,31 @@ public class PokeExport
 	//		for (int x=0; x<32; x++)
 	//			pkmdata[x] = 
 
+	public void fixChecksum()
+	{
+		checksumStuff(true);
+	}
+	
+	public boolean verifyChecksum()
+	{
+		return checksumStuff(false);
+	}
 
 	/**
 	 * Fixes the checksum for modified data, needs to be called whenever stuff is written
 	 */
-	public  void fixChecksum()
+	public boolean checksumStuff(boolean writedata)
 	{
-		int start = 8201;
-		int size = 2938;
+		int[] dimens = version.getChecksumDimensions();
+		int start = dimens[0];
+		int size = dimens[1];
 		int new_checksum = 0;
 
 		int new_checksum1 = 0;
 		int new_checksum2 = 0;
 
-		int old_checksum1 = (getUnsigned(data[11533]));
-		int old_checksum2 = (getUnsigned(data[11534]));
+		int old_checksum1 = (getUnsigned(data[dimens[2]]));
+		int old_checksum2 = (getUnsigned(data[dimens[2]+1]));
 		int old_checksum = old_checksum1*256 + old_checksum2;
 
 		for (int x=0; x<size; x++)
@@ -756,13 +822,23 @@ public class PokeExport
 		new_checksum = new_checksum1*256 + new_checksum2;
 
 		if (new_checksum == old_checksum)
+		{
 			System.out.println("checksum is valid!");
+			return true;
+		}
 		else
 		{
 			System.out.printf( "checksum SHOULD be %x, it is set to %x\n", new_checksum, old_checksum);
-			data[11533] = (byte)deSign(new_checksum1);
-			data[11534] = (byte)deSign(new_checksum2);
-			fixChecksum();
+
+			if (writedata)
+			{
+				data[dimens[2]] = (byte)deSign(new_checksum1);
+				data[dimens[2]+1] = (byte)deSign(new_checksum2);
+
+				fixChecksum();
+			}
+			
+			return false;
 
 		}
 
@@ -1083,6 +1159,9 @@ public class PokeExport
 
 		// Loads the file that was just chosen
 		loadFile();
+		
+		detectVersion();
+		System.out.println("The game version is "+ version.getVersion());
 	}
 
 	/**
