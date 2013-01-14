@@ -3,15 +3,31 @@ public class Version
 {
 	String name;
 	int gen;
-		
+
+	int getStartOfParty()
+	{
+		switch (gen)
+		{
+		case 1:
+			return 12084;
+		case 3:
+			return 10349;
+		default:
+			return 0;
+		}
+	}
+
 	int[] getChecksumDimensions()	// start, size, offset
 	{
 		switch(gen)
-		{
-		case 2:
+		{	// color case
+		case 1:
+			int[] e = {9624, 3979, 13603};
+			return e;
+		case 2:		// gold silver
 			int[] a =  {8201, 3424, 11625};
 			return a;
-		case 3:
+		case 3:		// crystal
 			int[] c =  {8201, 2938, 11533};
 			return c;
 		default:
@@ -19,28 +35,25 @@ public class Version
 			return b;
 		}
 	}
-	
+
 	int getGen()
 	{
 		return gen;
 	}
-	
+
 	String getVersion()
 	{
 		return name;
 	}
-	
+
 	void setVersion(int gen)		// 0 is RB, 1 is Y, 2 is GS, 3 is C
 	{
 		this.gen = gen;
-		
+
 		switch (gen)
 		{
-		case 0:
-			name = "Red / Blue";
-			break;
 		case 1:
-			name = "Yellow";
+			name = "Red / Blue / Yellow";
 			break;
 		case 2:
 			name = "Gold / Silver";
@@ -50,6 +63,40 @@ public class Version
 			break;
 		default:
 			name = "Unknown";
+		}
+	}
+
+	public int getSizeOfPartyData() 
+	{
+		return 44 + ((gen<2)? 0:4);
+	}
+
+	public int getSizeOfPokeData() 
+	{
+		switch (gen)
+		{
+		case 0:
+		case 1:
+			return 33;
+		case 2:
+		case 3:
+		default:
+			return 32;
+		}
+	}
+
+	public int getNicknameOffset() 
+	{
+		switch (gen)
+		{
+		case 0:
+		case 1:
+			return 12414;
+		case 2:
+		case 3:
+			return 7119;
+		default:
+			return 0;
 		}
 	}
 }

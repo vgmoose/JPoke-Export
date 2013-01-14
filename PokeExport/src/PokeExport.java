@@ -7,12 +7,11 @@ import java.io.IOException;
 import javax.swing.JFileChooser;
 
 
-
 public class PokeExport 
 {
 	File pokesav; 
 	byte[] data;
-	
+
 	Version version;
 
 	static String[] items = {"y05b", "\"vxsb!KYv??", "V?s!vKYv??", "Y!NXSso0dgb!", "@!bvsKYv??", "o0DbKYv??", "YNlZl?b", "[b!nfxv:v", "\"005K`s05b", "^5sNg0sb", "Yn!5K;bv?", "6lbK;bv?", "^dvDb5N5X", "ov!?ZUK;bv?", "En??Kebxs0!b", "\"v_Ko0sN05", ";Z+b!Ko0sN05", "`n+b!Ko0sN05", "o0sN05", "Jxlv+bKe0+b", "eb+b?", "\"v_KJ?N_b!", "EN!bK`s05b", "[Sn5gb!xs05b", "Lvsb!K`s05b", "[b!nfxv:v", ";oKV+", "o!0sbN5", "6!05", "Tv!q0x", "'nlDZKon5lS", "Tv?lNn:", "ev!bKTv5gZ", "GK^lln!vlZ", "'bv]K`s05b", "\"bsv?Ko0dgb!", "ynXXbs", "o0DbKO0??", "En??K;bv?", "ebiNib", "\"v_KebiNib", "@nv!gK`+bla", "`n+b!Keb+b?", "\"v_Keb+b?", "ON!bK;Ns", "[b!nfxv:v", "E!bxSKLvsb!", "`0gvKo0+", "'b:05vgb", "GK^ssvlD", "[b!nfxv:v", "GKOb]b5g", "GK`+bbg", "GK`+blNv?", "T0N5KTvxb", "6sb:]N5gb!", "[b!nfxv:v", "J_+K`Sv!b", "t?gKe0g", "@00gKe0g", "`N?ib!K'bv]", "`n+b!Ke0g", "ooKV+", "JsSb!", "\"v_KJsSb!", "J?N_b!", "ebgK`lv?b", "`bl!bso0sN05", "`a`aK[NlDbs", "\"Zxsb!ZKJXX", "T?bv!KYb??", "`N?ib!KLN5X", "\"00:00K\"N?D", "jnNlDKT?vd", "o`yTn!bYb!!Z", "@0?gK'bv]", "`0]sK`v5g", "`Sv!+KYbvD", "oe=Tn!bYb!!Z", "Yn!5sKYb!!Z", "6lbKYb!!Z", "o0Nx05KYv!q", ",N5X(xKe0lD", "YNssb!KYb!!Z", "\"N5sKYb!!Z", "ebgK^+!Nl0!5", "[N5Z\"nxS!00:", "YNXK\"nxS!00:", "`N?ib!o0dgb!", "Y?nK^+!Nl0!5", "[b!nfxv:v", "^:n?bsKT0N5", "B?dK^+!Nl0!5", "@!5K^+!Nl0!5", "T?bv5xbK[vX", "\"ZxsNlKLvsb!", "[dNxsbg`+005", "LSsK^+!Nl0!5", "Y?vlDKYb?s", "Y?DK^+!Nl0!5", "[b!nfxv:v", "o5DK^+!Nl0!5", "Y?vlD@?vxxbx", "`?0d+0Db[vN?", "oN5DKY0d", "`sNlD", "`:0DbKYv??", "ybib!\"b?s6lb", "\"vX5bs", "\"N!vl?bYb!!Z", "obv!?", "YNXKobv!?", "Jib!xs05b", "`+b??K[vX", "evXbTv5gZYv!", "@`KYv??", "Y?nbKTv!g", "\"N!vl?bK`bbg", "[SNlDKT?nq", "E0lnxKYv5g", "[b!nfxv:v", "J5b!XZo0dgb!", "J5b!XZKe00s", ";bv?Ko0dgb!", "ebiNiv?K;b!q", ";v!gK`s05b", "'nlDZKJXX", "Tv!gK,bZ", "\"vlSN5bKov!s", "JXXK[NlDbs", "'0xsK6sb:", "`sv!gnxs", "`sv!KoNblb", "Yvxb:b5sK,bZ", "ovxx", "[b!nfxv:v", "[b!nfxv:v", "[b!nfxv:v", "TSv!l0v?", "Yb!!ZK1nNlb", "`l0+bK'b5x", "[b!nfxv:v", "[b!nfxv:v", "\"bsv?KT0vs", "O!vX05KEv5X", "[b!nfxv:v", "'b]s0ib!x", "[b!nfxv:v", "[b!nfxv:v", "[b!nfxv:v", "\"Zxsb!ZYb!!Z", "O!vX05K`lv?b", "Yb!xb!DK@b5b", "[b!nfxv:v", "[b!nfxv:v", "[b!nfxv:v", "`vl!bgK^xS", ";bviZKYv??", "E?0db!K\"vN?", "'bib?KYv??", "'n!bKYv??", "EvxsKYv??", "[b!nfxv:v", "'NXSsKYv??", "E!Nb5gKYv??", "\"005KYv??", "'0ibKYv??", "y0!:v?KY0_", "@0!Xb0nxKY0_", "`n5K`s05b", "o0?Dvg0sKY0d", "[b!nfxv:v", "V+f@!vgb", "Yb!!Z", "@0?gKYb!!Z", "`&nN!sY0ss?b", "[b!nfxv:v", "ov!DKYv??", "evN5q0dKLN5X", "[b!nfxv:v", "Y!NlDKoNblb", "`n!]K\"vN?", "'Nsbq?nb:vN?", "o0!s!vNs:vN?", "'0ib?ZK\"vN?", "J05K\"vN?", "\"0!+SK\"vN?", "Y?nbxDZK\"vN?", "\"nxNlK\"vN?", "\"N!vXbK\"vN?", "[b!nfxv:v", "[\"WR", "[\"WM", "[\"WH", "[\"WC", "EvDbK[\"WC", "[\"W>", "[\"W9", "[\"W4", "[\"W/", "[\"W*", "[\"RW", "[\"RR", "[\"RM", "[\"RH", "[\"RC", "[\"R>", "[\"R9", "[\"R4", "[\"R/", "[\"R*", "[\"MW", "[\"MR", "[\"MM", "[\"MH", "[\"MC", "[\"M>", "[\"M9", "[\"M4", "[\"M/", "[b!nfxv:v", "[\"M*", "[\"HW", "[\"HR", "[\"HM", "[\"HH", "[\"HC", "[\"H>", "[\"H9", "[\"H4", "[\"H/", "[\"H*", "[\"CW", "[\"CR", "[\"CM", "[\"CH", "[\"CC", "[\"C>", "[\"C9", "[\"C4", "[\"C/", "[\"C*", "[\">W", ";\"WR", ";\"WM", ";\"WH", ";\"WC", ";\"W>", ";\"W9", ";\"W4", ";\"W/", ";\"W*", ";\"RW", ";\"RR", ";\"RM", "Tv5lb?"};
@@ -22,6 +21,7 @@ public class PokeExport
 	//	 String[] locationmapping = {"0","126","177","127","178","179","139","204","180","209","143","181","129","211","214","182","131","208","183","207","184","185","133","205","206","186","187","132","212","205","188","218","189","130","190","216","134","191","135","192","217","136","222","193","220","194","137","138","149","224","150","140","151","198","152","141","172","173","153","210","154","221","197","155","156","157","200","158","201","142","0","144","148","159","160","161","162","163","164","165","166","145","167","168","203","146","169","170","128","171","147","174","175","223","176","226"};	
 
 	static double[] genders = {-1,0.875,0.875,0.875,0.875,0.875,0.875,0.875,0.875,0.875,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0,0,0,1,1,1,0.25,0.25,0.25,0.25,0.25,0.25,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.75,0.75,0.5,0.5,0.5,0.75,0.75,0.75,0.75,0.75,0.75,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,-1,-1,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,-1,-1,0.5,0.5,0.5,0.5,1,1,0.5,0.5,0.5,0.5,0.5,0,0.5,0,0.5,0.5,0.5,0.5,-1,-1,0.5,0.5,0,0.75,0.75,0.5,1,0.5,0.5,0.5,-1,0.875,0.875,0.875,0.875,-1,0.875,0.875,0.875,0.875,0.875,0.875,-1,-1,-1,0.5,0.5,0.5,-1,-1,0.875,0.875,0.875,0.875,0.875,0.875,0.875,0.875,0.875,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.25,0.25,0.875,0.875,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.875,0.875,0.5,0.5,0.5,-1,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.25,0.25,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.25,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,-1,0.5,0.5,1,1,0,0.75,0.75,0,0,-1,-1,-1,0.5,0.5,0.5,-1,-1,-1};
+	static int[] gconvert = {0,153,9,154,176,178,180,177,179,28,123,124,125,112,113,114,36,150,151,165,166,5,35,108,45,84,85,96,97,15,168,16,3,167,7,4,142,82,83,100,101,107,130,185,186,187,109,46,65,119,59,118,77,144,47,128,57,117,33,20,71,110,111,148,38,149,106,41,126,188,189,190,24,155,169,39,49,163,164,37,8,173,54,64,70,116,58,120,13,136,23,139,25,147,14,34,48,129,78,138,6,141,12,10,17,145,43,44,11,55,143,18,1,40,30,2,92,93,157,158,27,152,42,26,72,53,51,29,60,133,22,19,76,102,105,104,103,170,98,99,90,91,171,132,74,75,73,88,89,66,131,21};
 
 	// base stats
 	int[] base_hp = {-1, 45, 60, 80, 39, 58, 78, 44, 59, 79, 45, 50, 60, 40, 45, 65, 40, 63, 83, 30, 55, 40, 65, 35, 60, 35, 60, 50, 75, 55, 70, 90, 46, 61, 81, 70, 95, 38, 73, 115, 140, 40, 75, 45, 60, 75, 35, 60, 60, 70, 10, 35, 40, 65, 50, 80, 40, 65, 55, 90, 40, 65, 90, 25, 40, 55, 70, 80, 90, 50, 65, 80, 40, 80, 40, 55, 80, 50, 65, 90, 95, 25, 50, 52, 35, 60, 65, 90, 80, 105, 30, 50, 30, 45, 60, 35, 60, 85, 30, 55, 40, 60, 60, 95, 50, 60, 50, 50, 90, 40, 65, 80, 105, 250, 65, 105, 30, 55, 45, 80, 30, 60, 40, 70, 65, 65, 65, 65, 75, 20, 95, 130, 48, 55, 130, 65, 65, 65, 35, 70, 30, 60, 80, 160, 90, 90, 90, 41, 61, 91, 106, 100, 45, 60, 80, 39, 58, 78, 50, 65, 85, 35, 85, 60, 100, 40, 55, 40, 70, 85, 75, 125, 20, 50, 90, 35, 55, 40, 65, 55, 70, 90, 75, 70, 100, 70, 90, 35, 55, 75, 55, 30, 75, 65, 55, 95, 65, 95, 60, 95, 60, 48, 190, 70, 50, 75, 100, 65, 75, 60, 90, 65, 70, 20, 80, 55, 60, 90, 40, 50, 50, 100, 55, 35, 75, 45, 65, 65, 45, 75, 75, 90, 90, 85, 73, 55, 35, 50, 45, 45, 45, 95, 255, 90, 115, 100, 50, 70, 100, 106, 106, 100};
@@ -42,39 +42,45 @@ public class PokeExport
 	{
 		initVars();
 	}
-	
+
 	public void detectVersion()
 	{
 		version = new Version();
-		
-		boolean[] gens = {false, false, false, false};
-		
-		version.setVersion(3);
 
+		boolean[] gens = {false, false, false, false};
+
+		// Red Blue Yellow version
+		version.setVersion(1);
 		if (verifyChecksum())
-			gens[3] = true;
-		
+			gens[1] = true;
+
+		// Gold Silver version
 		version.setVersion(2);
-		
 		if (verifyChecksum())
 			gens[2] = true;
-		
+
+		// Crystal version
+		version.setVersion(3);
+		if (verifyChecksum())
+			gens[3] = true;
+
+
 		int sum = 0; int last = 0;
-		
+
 		for (int x=0; x<gens.length; x++)
 		{
 			sum += gens[x]? 1:0;
-			
+
 			if (gens[x])
 				last = x;
 		}
-		
+
 		if (sum!=1)
 			version.setVersion(0);
 		else
 			version.setVersion(last);
-		
-			
+
+
 	}
 
 	public void othermain() throws IOException
@@ -82,6 +88,9 @@ public class PokeExport
 		//		initVars();
 		decryptAllStrings();
 
+
+
+		//		printHexTable();
 		//		printAllPokemonNames();
 		//		addPokemonToBox(importPokemon(listAllPokemonFiles()[1]), 2);
 		//		addPokemonToBox(importPokemon(listAllPokemonFiles()[1]), 3);
@@ -91,13 +100,16 @@ public class PokeExport
 
 		//		printAllPokemonDetails();
 
-		byte[] poke = readPokemonFromData(getPosition(0,5));
-		System.out.println(parsePkm(poke));
-		writeItem(181, poke);
-		System.out.println(parsePkm(poke));
-
-		writePokemonToData(poke, getPosition(0,5));
-		writeFile();
+		for (int x=1; x<=6; x++)
+		{
+			byte[] poke = readPokemonFromData(getPosition(0,x));
+			System.out.println(parsePkm(poke));
+		}
+		//		writeItem(181, poke);
+		//		System.out.println(parsePkm(poke));
+		//
+		//		writePokemonToData(poke, getPosition(0,5));
+		//		writeFile();
 
 		//		printHexTable();
 		//
@@ -565,6 +577,9 @@ public class PokeExport
 		// Get the nickname
 		for (int x=0; x<11; x++)
 		{
+			if (getUnsigned(b[x]) == 0)
+				break;
+			
 			output += ((char)(convertPokeText(getUnsigned(b[x]))));
 		}
 
@@ -707,11 +722,11 @@ public class PokeExport
 	 */
 	public  byte[] readPkmnData(int pos)
 	{
-		byte[] pkmdata = new byte[32];
-		// Byte represents the nickname, so it will always be 11 bytes.
+		int extra = ((version.getGen() < 2)? 1:0);
+		byte[] pkmdata = new byte[version.getSizeOfPokeData() + extra];
 
 		// pos 1-6 is party, from then on is box
-		int begin = 10349; 
+		int begin = version.getStartOfParty(); 
 
 		if (pos>=6)
 		{
@@ -719,10 +734,10 @@ public class PokeExport
 			begin+=32*getPositionInBox(pos);
 		}
 		else
-			begin+=48*pos;
+			begin+=version.getSizeOfPartyData()*pos;
 
 		// Get the data
-		for (int x=0; x<32; x++)
+		for (int x=0; x<version.getSizeOfPokeData() + extra; x++)
 		{
 			if (pos<6)
 			{
@@ -737,9 +752,61 @@ public class PokeExport
 
 		}
 
+		if (version.getGen() < 2)
+			return convertColorToMetal(pkmdata);
+//		printBytes(pkmdata);
+
 		return pkmdata;
 	}
 
+	private byte[] convertColorToMetal(byte[] color) 
+	{
+		byte[] metal = new byte[32];
+
+		int index;
+		
+		// index number
+		for (index=0; index<gconvert.length; index++)
+			if (gconvert[index] == getUnsigned(color[0]))
+				break;
+
+		metal[0] = (byte) index;
+
+		// level
+		metal[31] = color[33];
+
+		// hold item
+		if (items[getUnsigned(color[7])].equals("Teru-sama"))
+			metal[1] = 0;
+		else
+			metal[1] = color[7];
+
+		// moves
+		for (int x=0; x<4; x++)
+			metal[2+x] = color[8+x];
+
+		// id number
+		for (int x=0; x<2; x++)
+			metal[6+x] = color[12+x];
+
+		// exp points
+		for (int x=0; x<3; x++)
+			metal[8+x] = color[14+x];
+
+		// ev data
+		for (int x=0; x<10; x++)
+			metal[11+x] = color[17+x];
+
+		// iv data
+		for (int x=0; x<2; x++)
+			metal[21+x] = color[27+x];
+
+		// pp values
+		for (int x=0; x<4; x++)
+			metal[23+x] = color[29+x];
+
+		return metal;
+	}
 	/**
 	 * Writes the passed bytes to the data array, should be called when inserting into
 	 * a slot a certain array of bytes
@@ -785,18 +852,68 @@ public class PokeExport
 
 	public void fixChecksum()
 	{
-		checksumStuff(true);
-	}
-	
-	public boolean verifyChecksum()
-	{
-		return checksumStuff(false);
+		switch (version.getGen())
+		{
+		case 1:
+			colorChecksumStuff(true);
+		case 2: case 3:
+			metalChecksumStuff(true);
+		default:
+			break;
+		}
 	}
 
+	public boolean verifyChecksum()
+	{
+		switch (version.getGen())
+		{
+		case 1:
+			return colorChecksumStuff(false);
+		case 2: case 3:
+			return metalChecksumStuff(false);
+		default:
+			return false;
+		}
+	}
+
+	private boolean colorChecksumStuff(boolean writedata) 
+	{
+		int[] dimens = version.getChecksumDimensions();
+
+		int start = dimens[0];
+		int new_checksum = 255;
+		int old_checksum = (getUnsigned(data[dimens[2]]));	        
+
+		for (int x=0; x<dimens[1]; x++)
+		{
+			new_checksum -= getUnsigned(data[start+x]);
+			new_checksum &= 255;
+		}
+
+		if (old_checksum == new_checksum)
+		{
+			System.out.println("checksum is valid!");
+			return true;
+		}
+		else
+		{
+
+			if (writedata)
+			{
+				System.out.printf( "checksum SHOULD be %x, it is set to %x\n", new_checksum, old_checksum);
+
+				data[dimens[2]] = (byte)deSign(new_checksum);
+				fixChecksum();
+			}
+
+			return false;
+		}
+
+	}
 	/**
 	 * Fixes the checksum for modified data, needs to be called whenever stuff is written
 	 */
-	public boolean checksumStuff(boolean writedata)
+	public boolean metalChecksumStuff(boolean writedata)
 	{
 		int[] dimens = version.getChecksumDimensions();
 		int start = dimens[0];
@@ -828,16 +945,17 @@ public class PokeExport
 		}
 		else
 		{
-			System.out.printf( "checksum SHOULD be %x, it is set to %x\n", new_checksum, old_checksum);
 
 			if (writedata)
 			{
+				System.out.printf( "checksum SHOULD be %x, it is set to %x\n", new_checksum, old_checksum);
+
 				data[dimens[2]] = (byte)deSign(new_checksum1);
 				data[dimens[2]+1] = (byte)deSign(new_checksum2);
 
 				fixChecksum();
 			}
-			
+
 			return false;
 
 		}
@@ -871,7 +989,7 @@ public class PokeExport
 		byte[] name = new byte[11];
 
 		// pos 1-6 is party, from then on is box
-		int begin = 10349; 
+		int begin = version.getNicknameOffset(); 
 
 		if (pos>=6)
 		{
@@ -879,7 +997,7 @@ public class PokeExport
 			begin+=32*getPositionInBox(pos);
 		}
 		else
-			begin+=48*pos;
+			begin+=11*pos;
 
 		// Get the nickname
 		for (int x=0; x<11; x++)
@@ -887,13 +1005,15 @@ public class PokeExport
 			if (pos<6)
 			{
 				//				System.out.print((char)(convertPokeText(getUnsigned((data[begin+x+354-37*pos])))));
-				name[x]=data[begin+x+354-37*pos];
+				name[x]=data[begin+x];
 			}
 			else
 			{
 				//				System.out.print((char)(convertPokeText(getUnsigned((data[begin+x+860-21*((pos-6)%20)])))));
 				name[x]=data[begin+x+860-21*getPositionInBox(pos)];
 			}
+			
+			if (data[begin+x] == 80) break;
 
 		}
 
@@ -1154,12 +1274,13 @@ public class PokeExport
 
 	public  void initVars() throws IOException
 	{
-		pokesav = new File("/Users/Ricky/Library/Application Support/Bannister/KiGB/Battery RAM/Pokemon Crystal.sav");
+//				pokesav = new File("/Users/Ricky/Library/Application Support/Bannister/KiGB/Battery RAM/Pokemon Crystal.sav");
 		//		pokesav = chooseFile();
+		pokesav = new File("Yellow.sav");
 
 		// Loads the file that was just chosen
 		loadFile();
-		
+
 		detectVersion();
 		System.out.println("The game version is "+ version.getVersion());
 	}
