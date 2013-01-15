@@ -46,13 +46,13 @@ public class Version
 		return name;
 	}
 
-	void setVersion(int gen)		// 0 is RB, 1 is Y, 2 is GS, 3 is C
+	void setVersion(int gen)		// 1 is RBY, 2 is GS, 3 is C
 	{
 		this.gen = gen;
 
 		switch (gen)
 		{
-		case 1:
+		case 1:		// color case
 			name = "Red / Blue / Yellow";
 			break;
 		case 2:
@@ -61,7 +61,7 @@ public class Version
 		case 3:
 			name = "Crystal";
 			break;
-		default:
+		default:		// null gen
 			name = "Unknown";
 		}
 	}
@@ -75,13 +75,13 @@ public class Version
 	{
 		switch (gen)
 		{
-		case 0:
 		case 1:
 			return 33;
 		case 2:
 		case 3:
-		default:
 			return 32;
+		default:
+			return 0;
 		}
 	}
 
@@ -98,5 +98,10 @@ public class Version
 		default:
 			return 0;
 		}
+	}
+
+	public static int numberOfGens() 
+	{
+		return 4;	// including the null gen
 	}
 }

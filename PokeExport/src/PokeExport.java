@@ -47,23 +47,14 @@ public class PokeExport
 	{
 		version = new Version();
 
-		boolean[] gens = {false, false, false, false};
+		boolean[] gens = new boolean[Version.numberOfGens()];	// 0 is the null gen
 
-		// Red Blue Yellow version
-		version.setVersion(1);
-		if (verifyChecksum())
-			gens[1] = true;
-
-		// Gold Silver version
-		version.setVersion(2);
-		if (verifyChecksum())
-			gens[2] = true;
-
-		// Crystal version
-		version.setVersion(3);
-		if (verifyChecksum())
-			gens[3] = true;
-
+		for (int x=1; x<gens.length; x++)
+		{
+			version.setVersion(x);
+			if (verifyChecksum())
+				gens[x] = true;
+		}
 
 		int sum = 0; int last = 0;
 
@@ -98,14 +89,26 @@ public class PokeExport
 		//		addPokemonToBox(importPokemon(listAllPokemonFiles()[1]), 5);
 		//		writeFile();
 
-		//		printAllPokemonDetails();
+//		printAllPokemonDetails();
 
-		for (int x=1; x<=6; x++)
-		{
-			byte[] poke = readPokemonFromData(getPosition(0,x));
-			System.out.println(parsePkm(poke));
-		}
-		//		writeItem(181, poke);
+//				for (int x=1; x<=6; x++)
+//				{
+//					byte[] poke = readPokemonFromData(getPosition(0,x));
+//					System.out.println(parsePkm(poke));
+//				}
+				
+				byte[] poke = readPokemonFromData(getPosition(0,1));
+				System.out.println(parsePkm(poke));
+
+				writeSpecies(25, poke);
+				writeNickNameBytesToPokemon("The Dude", poke);
+				System.out.println(parsePkm(poke));
+
+				writePokemonToData(poke, getPosition(0,1));
+				
+				System.out.println(parsePkm(readPokemonFromData(getPosition(0,6))));
+				
+				writeFile();
 		//		System.out.println(parsePkm(poke));
 		//
 		//		writePokemonToData(poke, getPosition(0,5));
@@ -141,7 +144,7 @@ public class PokeExport
 	 * @param b	the full 32 bit string for PKMN data
 	 * @return
 	 */
-	byte[] spoofBytes(byte[] b)
+	byte[] spoofMetalBytes(byte[] b)
 	{
 		byte[] newbytes = new byte[48];
 
@@ -157,8 +160,12 @@ public class PokeExport
 		//		b[36] = 
 		//		b[37] = 
 
-		// Attack
+		// Other stats
 		int atk = (int) (((getAttackIV(b[21]) + base_atk[getUnsigned(b[0])] + Math.sqrt(getEV(b, 1))/8)/50 + 5));
+		int def = (int) (((getDefenseIV(b[21]) + base_def[getUnsigned(b[0])] + Math.sqrt(getEV(b, 1))/8)/50 + 5));
+		int speed = (int) (((getSpeedIV(b[21]) + base_speed[getUnsigned(b[0])] + Math.sqrt(getEV(b, 1))/8)/50 + 5));
+		int spatk = (int) (((getSpecialIV(b[21]) + base_spatk[getUnsigned(b[0])] + Math.sqrt(getEV(b, 1))/8)/50 + 5));
+		int spdef = (int) (((getSpecialIV(b[21]) + base_spdef[getUnsigned(b[0])] + Math.sqrt(getEV(b, 1))/8)/50 + 5));
 
 		return newbytes;
 
@@ -445,6 +452,8 @@ public class PokeExport
 
 		if (a==1)
 			return "Egg";
+		else if (a==0)
+			return "No data";
 		else
 			return ""+a;
 	}
@@ -541,6 +550,11 @@ public class PokeExport
 	{
 		b[23] = (byte)deSign(i);
 	}
+	
+	static void writeSpecies(int i, byte[] b)
+	{
+		b[22] = (byte)deSign(i);
+	}
 
 	static String parseItem(byte[] b) 
 	{
@@ -579,7 +593,7 @@ public class PokeExport
 		{
 			if (getUnsigned(b[x]) == 0)
 				break;
-			
+
 			output += ((char)(convertPokeText(getUnsigned(b[x]))));
 		}
 
@@ -655,7 +669,12 @@ public class PokeExport
 
 		writeNickName(namedata, index);
 		writeOT(otnamedata, index);
+		
+		if (version.getGen() < 2)
+			pkmdata = convertMetalToColor(pkmdata);
+		
 		writePkmnData(pkmdata, index);
+		
 		writeOtherSpecies(pkmdata[0], index);
 
 	}
@@ -754,9 +773,19 @@ public class PokeExport
 
 		if (version.getGen() < 2)
 			return convertColorToMetal(pkmdata);
-//		printBytes(pkmdata);
+		//		printBytes(pkmdata);
 
 		return pkmdata;
+	}
+	
+	private byte[] convertMetalToColor(byte[] metal)
+	{
+		byte[] color = new byte[33];
+		
+		color[0] = (byte) deSign(gconvert[getUnsigned(metal[0])]);
+		
+		return color;
+		
 	}
 
 	private byte[] convertColorToMetal(byte[] color) 
@@ -764,13 +793,13 @@ public class PokeExport
 		byte[] metal = new byte[32];
 
 		int index;
-		
+
 		// index number
 		for (index=0; index<gconvert.length; index++)
 			if (gconvert[index] == getUnsigned(color[0]))
 				break;
 
-		metal[0] = (byte) index;
+		metal[0] = (byte) deSign(index);
 
 		// level
 		metal[31] = color[33];
@@ -804,6 +833,10 @@ public class PokeExport
 		// pp values
 		for (int x=0; x<4; x++)
 			metal[23+x] = color[29+x];
+		
+		// happiness (yellow only and pikachu only)
+		if (getUnsigned(metal[0]) == 25)
+			metal[27] = data[13603];
 
 		return metal;
 	}
@@ -819,7 +852,7 @@ public class PokeExport
 	public  void writePkmnData(byte[] b, int pos)
 	{
 		// pos 1-6 is party, from then on is box
-		int begin = 10349; 
+		int begin = version.getStartOfParty(); 
 		//		int mirror = 2866;
 
 		if (pos>=6)
@@ -828,7 +861,7 @@ public class PokeExport
 			begin+=32*getPositionInBox(pos);
 		}
 		else
-			begin+=48*pos;
+			begin+=version.getSizeOfPartyData()*pos;
 
 		// Get the data
 		for (int x=0; x<32; x++)
@@ -856,6 +889,7 @@ public class PokeExport
 		{
 		case 1:
 			colorChecksumStuff(true);
+			break;
 		case 2: case 3:
 			metalChecksumStuff(true);
 		default:
@@ -1012,13 +1046,25 @@ public class PokeExport
 				//				System.out.print((char)(convertPokeText(getUnsigned((data[begin+x+860-21*((pos-6)%20)])))));
 				name[x]=data[begin+x+860-21*getPositionInBox(pos)];
 			}
-			
+
 			if (data[begin+x] == 80) break;
 
 		}
 
 		// Return the string of bytes representing the name
 		return name;
+	}
+	
+	public static byte[] writeNickNameBytesToPokemon(String s, byte[] poke)
+	{		
+		int x;
+		
+		for (x=0; x<s.length() && x<11; x++)
+			poke[x] = (byte) convertASCII(s.charAt(x));
+		
+		poke[x] = (byte)80;
+		
+		return poke;
 	}
 
 	/**
@@ -1030,7 +1076,7 @@ public class PokeExport
 	public  void writeNickName(byte[] b, int pos)
 	{
 		// pos 1-6 is party, from then on is box
-		int begin = 10349; 
+		int begin = version.getNicknameOffset(); 
 
 		if (pos>=6)
 		{
@@ -1038,7 +1084,7 @@ public class PokeExport
 			begin+=32*getPositionInBox(pos);
 		}
 		else
-			begin+=48*pos;
+			begin+=version.getSizeOfPartyData()*pos;
 
 		// Get the nickname
 		for (int x=0; x<11; x++)
@@ -1046,7 +1092,7 @@ public class PokeExport
 			if (pos<6)
 			{
 				//				System.out.print((char)(convertPokeText(getUnsigned((data[begin+x+354-37*pos])))));
-				data[begin+x+354-37*pos]=b[x];
+				data[begin+x]=b[x];
 			}
 			else
 			{
@@ -1274,9 +1320,9 @@ public class PokeExport
 
 	public  void initVars() throws IOException
 	{
-//				pokesav = new File("/Users/Ricky/Library/Application Support/Bannister/KiGB/Battery RAM/Pokemon Crystal.sav");
+//		pokesav = new File("/Users/Ricky/Library/Application Support/Bannister/KiGB/Battery RAM/Pokemon Crystal.sav");
 		//		pokesav = chooseFile();
-		pokesav = new File("Yellow.sav");
+				pokesav = new File("Yellow.sav");
 
 		// Loads the file that was just chosen
 		loadFile();
@@ -1292,6 +1338,8 @@ public class PokeExport
 	 */
 	public static  int convertPokeText(int c)
 	{
+		if (c == 127)
+			return ' ';
 		if (c>245 && c<=256)  
 			return c-198;
 		else if (c>=97 && c<191) //Pokemon alphabet
@@ -1303,6 +1351,14 @@ public class PokeExport
 		else
 			return '.';
 
+	}
+	
+	public static int convertASCII(int c)
+	{
+		if (c == ' ')
+			return 127;
+			
+		return c-65+128;
 	}
 
 	/**
@@ -1412,7 +1468,7 @@ public class PokeExport
 	 */
 	public  void writeOtherSpecies(byte b, int pos)
 	{
-		int begin = 10349; 
+		int begin = version.getStartOfParty(); 
 
 		if (pos>=6)
 		{
