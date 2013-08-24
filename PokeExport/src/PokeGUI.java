@@ -180,6 +180,11 @@ public class PokeGUI extends JFrame implements ActionListener
 	{
 		try {
 			pe1.writePokemonToData(PokeExport.importPokemon(PokeExport.listLocalPokemonFiles()[rightFrame.getSelectedIndex()]), PokeExport.getPosition(box1, leftFrame.getSelectedIndex()+1));
+			
+			//byte[] a = PokeExport.importPokemon(PokeExport.listLocalPokemonFiles()[rightFrame.getSelectedIndex()]);
+			
+			//System.out.println(PokeExport.parsePkm(a));
+			
 			pe1.writeFile();
 			leftFrame.refresh();
 		

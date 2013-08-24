@@ -79,7 +79,16 @@ public class PokeExport
 		//		initVars();
 		decryptAllStrings();
 
+		byte[] tar = importPokemon(listLocalPokemonFiles()[listLocalPokemonFiles().length-1]);
 
+		System.out.println(parsePkm(tar));
+		
+		writePokemonToData(tar, getPosition(0, 1));
+		
+		
+		writeFile();
+		
+//		System.out.println(readNickName(getPosition(0,1)));
 
 		//		printHexTable();
 		//		printAllPokemonNames();
@@ -97,18 +106,18 @@ public class PokeExport
 //					System.out.println(parsePkm(poke));
 //				}
 				
-				byte[] poke = readPokemonFromData(getPosition(0,1));
-				System.out.println(parsePkm(poke));
-
-				writeSpecies(25, poke);
-				writeNickNameBytesToPokemon("The Dude", poke);
-				System.out.println(parsePkm(poke));
-
-				writePokemonToData(poke, getPosition(0,1));
-				
-				System.out.println(parsePkm(readPokemonFromData(getPosition(0,6))));
-				
-				writeFile();
+//				byte[] poke = readPokemonFromData(getPosition(0,1));
+//				System.out.println(parsePkm(poke));
+//
+//				writeSpecies(25, poke);
+//				writeNickNameBytesToPokemon("The Dude", poke);
+//				System.out.println(parsePkm(poke));
+//
+//				writePokemonToData(poke, getPosition(0,1));
+//				
+//				System.out.println(parsePkm(readPokemonFromData(getPosition(0,6))));
+//				
+//				writeFile();
 		//		System.out.println(parsePkm(poke));
 		//
 		//		writePokemonToData(poke, getPosition(0,5));
@@ -1320,9 +1329,10 @@ public class PokeExport
 
 	public  void initVars() throws IOException
 	{
-//		pokesav = new File("/Users/Ricky/Library/Application Support/Bannister/KiGB/Battery RAM/Pokemon Crystal.sav");
+		//pokesav = new File("/Users/Ricky/Library/Application Support/Bannister/KiGB/Battery RAM/Pokémon Crystal.sav");
 		//		pokesav = chooseFile();
-				pokesav = new File("Yellow.sav");
+		pokesav = new File("/Users/Ricky/ISO/doperoms/GBC/Pokémon Crystal.sav");
+				//pokesav = new File("Crystal.sav.sav");
 
 		// Loads the file that was just chosen
 		loadFile();
