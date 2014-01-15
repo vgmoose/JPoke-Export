@@ -1,5 +1,7 @@
 Pokemon Exporting Tool
-    - functions fully for second generation as of right now.
+    - this tool is designed to read the raw bytes from a pokemon save
+      file and export/import the specific pokemon.
+    - functions fully for first and second generation as of right now.
     
 Terminology:
 
